@@ -14,11 +14,17 @@ If a tournament has  multiple teams, the matchmaker could randomly create matchu
 Tables
 
 Teams (tournament_id) 
+
 People (role_id, status: active/inactive/retired/deceased) 
+
 Roles (1: player, 2: coach, 3: manager) 
+
 Tournaments (1: overwatch league, 2 overwatch contenders) 
+
 Countries 
+
 Groups (OWL_A, OWL_B, OWL_C, OWL_D) 
+
 Cities 
 	
 
