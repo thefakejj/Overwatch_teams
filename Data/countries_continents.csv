@@ -1,0 +1,193 @@
+AS,AF,Afghanistan
+EU,AL,Albania
+AF,DZ,Algeria
+EU,AD,Andorra
+AF,AO,Angola
+NA,AG,Antigua and Barbuda
+SA,AR,Argentina
+AS,AM,Armenia
+OC,AU,Australia
+EU,AT,Austria
+AS,AZ,Azerbaijan
+NA,BS,Bahamas
+AS,BH,Bahrain
+AS,BD,Bangladesh
+NA,BB,Barbados
+EU,BY,Belarus
+EU,BE,Belgium
+NA,BZ,Belize
+AF,BJ,Benin
+AS,BT,Bhutan
+SA,BO,Bolivia
+EU,BA,Bosnia and Herzegovina
+AF,BW,Botswana
+SA,BR,Brazil
+AS,BN,Brunei
+EU,BG,Bulgaria
+AF,BF,Burkina Faso
+AF,BI,Burundi
+AS,KH,Cambodia
+AF,CM,Cameroon
+NA,CA,Canada
+AF,CV,Cape Verde
+AF,CF,Central African Republic
+AF,TD,Chad
+SA,CL,Chile
+AS,CN,China
+SA,CO,Colombia
+AF,KM,Comoros
+AF,CG,Congo
+NA,CR,Costa Rica
+EU,HR,Croatia
+NA,CU,Cuba
+EU,CY,Cyprus
+EU,CZ,Czechia
+AF,CD,Democratic Republic of the Congo
+EU,DK,Denmark
+AF,DJ,Djibouti
+NA,DM,Dominica
+NA,DO,Dominican Republic
+SA,EC,Ecuador
+AF,EG,Egypt
+NA,SV,El Salvador
+AF,GQ,Equatorial Guinea
+AF,ER,Eritrea
+EU,EE,Estonia
+AF,SZ,Eswatini
+AF,ET,Ethiopia
+OC,FJ,Fiji
+EU,FI,Finland
+EU,FR,France
+AF,GA,Gabon
+AF,GM,Gambia
+AS,GE,Georgia
+EU,DE,Germany
+AF,GH,Ghana
+EU,GR,Greece
+NA,GD,Grenada
+NA,GT,Guatemala
+AF,GN,Guinea
+AF,GW,Guinea-Bissau
+SA,GY,Guyana
+NA,HT,Haiti
+NA,HN,Honduras
+EU,HU,Hungary
+EU,IS,Iceland
+AS,IN,India
+AS,ID,Indonesia
+AS,IR,Iran
+AS,IQ,Iraq
+EU,IE,Ireland
+AS,IL,Israel
+EU,IT,Italy
+AF,CI,Ivory Coast
+NA,JM,Jamaica
+AS,JP,Japan
+AS,JO,Jordan
+AS,KZ,Kazakhstan
+AF,KE,Kenya
+OC,KI,Kiribati
+AS,KW,Kuwait
+AS,KG,Kyrgyzstan
+AS,LA,Laos
+EU,LV,Latvia
+AS,LB,Lebanon
+AF,LS,Lesotho
+AF,LR,Liberia
+AF,LY,Libya
+EU,LI,Liechtenstein
+EU,LT,Lithuania
+EU,LU,Luxembourg
+AF,MG,Madagascar
+AF,MW,Malawi
+AS,MY,Malaysia
+AS,MV,Maldives
+AF,ML,Mali
+EU,MT,Malta
+OC,MH,Marshall Islands
+AF,MR,Mauritania
+AF,MU,Mauritius
+NA,MX,Mexico
+OC,FM,Micronesia
+EU,MD,Moldova
+EU,MC,Monaco
+AS,MN,Mongolia
+EU,ME,AMontenegro
+AF,MA,Morocco
+AF,MZ,Mozambique
+AS,MM,Myanmar
+AF,NA,Namibia
+OC,NR,Nauru
+AS,NP,Nepal
+EU,NL,Netherlands
+OC,NZ,New Zealand
+NA,NI,Nicaragua
+AF,NE,Niger
+AF,NG,Nigeria
+AS,KP,North Korea
+EU,MK,North Macedonia
+EU,NO,Norway
+AS,OM,Oman
+AS,PK,Pakistan
+OC,PW,Palau
+NA,PA,Panama
+OC,PG,Papua New Guinea
+SA,PY,Paraguay
+SA,PE,Peru
+AS,PH,Philippines
+EU,PL,Poland
+EU,PT,Portugal
+AS,QA,Qatar
+EU,RO,Romania
+EU,RU,Russia
+AF,RW,Rwanda
+NA,KN,Saint Kitts and Nevis
+NA,LC,Saint Lucia
+NA,VC,Saint Vincent and the Grenadines
+OC,WS,Samoa
+EU,SM,San Marino
+AF,ST,Sao Tome and Principe
+AS,SA,Saudi Arabia
+AF,SN,Senegal
+EU,RS,Serbia
+AF,SC,Seychelles
+AF,SL,Sierra Leone
+AS,SG,Singapore
+EU,SK,Slovakia
+EU,SI,Slovenia
+OC,SB,Solomon Islands
+AF,SO,Somalia
+AF,ZA,South Africa
+AS,KR,South Korea
+AF,SS,South Sudan
+EU,ES,Spain
+AS,LK,Sri Lanka
+AF,SD,Sudan
+SA,SR,Suriname
+EU,SE,Sweden
+EU,CH,Switzerland
+AS,SY,Syria
+AS,TJ,Tajikistan
+AF,TZ,Tanzania
+AS,TH,Thailand
+AS,TL,Timor-Leste
+AF,TG,Togo
+OC,TO,Tonga
+NA,TT,Trinidad and Tobago
+AF,TN,Tunisia
+AS,TR,Turkey
+AS,TM,Turkmenistan
+OC,TV,Tuvalu
+AF,UG,Uganda
+EU,UA,Ukraine
+AS,AE,United Arab Emirates
+EU,GB,United Kingdom
+NA,US,United States
+SA,UY,Uruguay
+AS,UZ,Uzbekistan
+OC,VU,Vanuatu
+SA,VE,Venezuela
+AS,VN,Vietnam
+AS,YE,Yemen
+AF,ZM,Zambia
+AF,ZW,Zimbabwe
