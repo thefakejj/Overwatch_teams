@@ -1,0 +1,71 @@
+Table tournaments {
+  id int PK
+  name text
+}
+
+Table countries {
+  id int PK
+  code varchar(2)
+  name text
+}
+
+Enum person_status {
+  active
+  inactive
+  retired
+  deceased
+}
+
+Table people {
+  id int PK
+  name text
+  status person_status
+  country_id int [ref: > countries.id]
+}
+
+Table in_game_roles {
+  id int PK
+  person_id int [ref: > people.id]
+  damage boolean
+  tank boolean
+  support boolean
+}
+
+Table teams {
+  id int PK
+  name text
+}
+
+Table people_teams_roles {
+  id int PK
+  person_id int [ref: > people.id]
+  player int [ref: > teams.id]
+  coach int [ref: > teams.id]
+  manager int [ref: > teams.id]
+}
+
+Table tournaments_teams {
+  id int PK
+  tournament_id int [ref: > tournaments.id]
+  team_id int [ref: > teams.id]
+}
+
+Table groups {
+  id int PK
+  name text
+  tournament_id int [ref: > tournaments.id]
+  team_id int [ref: > teams.id]
+}
+
+/* 
+Table regions {
+  id int PK
+  name text
+}
+
+Table cities {
+  id int PK
+  name text
+  country_id int [ref: > countries.id]
+}
+*/
