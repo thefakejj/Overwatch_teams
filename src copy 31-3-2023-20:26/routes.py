@@ -55,12 +55,15 @@ def person_insert():
 @ow_app.route("/people_teams_roles")
 def people_teams_roles():
     people = db_select.select_people()
-    teams = [None]
+    teams = ['NULL']
     for team in db_select.select_teams():
         teams.append(team)
     return render_template("people_teams_roles.html", people=people, teams=teams)
 
 @ow_app.route("/people_teams_roles_send", methods=["POST"])
 def person_team_role_insert():
+    #name = request.form["name"]
+    #status = request.form["status"]
+    #country_id = int(request.form["country"])
     db_insert.insert_into_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
     return redirect("/")

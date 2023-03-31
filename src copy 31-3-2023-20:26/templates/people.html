@@ -1,0 +1,28 @@
+<form action="/people_send" method="POST">
+    Add a person <br>
+    <br>
+    name: <br>
+    <textarea name="name" rows="1" cols="40"></textarea>
+    <br>
+    status: <br>
+    <SELECT name="status">
+    <br>
+            {% for status in statuses %}
+                <OPTION value={{status}}>{{status}}</option>
+            {% endfor %}
+            </SELECT>
+        
+    <br>
+    country: <br>
+    <SELECT name="country">
+    <br>
+        {% for country in countries %}
+            <OPTION value={{country.id}}>{{country.name}}</option>
+        {% endfor %}
+        </SELECT>
+    
+    <input type="submit" value="add">
+    </form>
+
+
+
