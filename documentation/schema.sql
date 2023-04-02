@@ -48,14 +48,19 @@ CREATE TABLE tournaments_teams (
     team_id INTEGER REFERENCES teams
 );
 
+/*
 CREATE TABLE groups (
     id SERIAL PRIMARY KEY,
     name TEXT,
-    tournament_id INTEGER REFERENCES tournaments,
+    tournament_id INTEGER REFERENCES tournaments
+);
+
+CREATE TABLE groups_teams (
+    id SERIAL PRIMARY KEY,
+    group_id INTEGER REFERENCES groups,
     team_id INTEGER REFERENCES teams
 );
 
-/*
 CREATE TABLE regions (
     id SERIAL PRIMARY KEY,
     name TEXT

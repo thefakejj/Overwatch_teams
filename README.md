@@ -13,6 +13,21 @@ An API will be used to get images of country flags in the program.
 --If a tournament has  multiple teams, the matchmaker could randomly create matchups.
 
 
+Project status:
+A local database exists and directory structure of the project has been created. Functionality regarding adding data to the database is largely sufficent. This has allowed me to test the database.
+
+Current functionality:
+- Automatically adding countries to the database upon loading the main page
+- Adding a tournament to the database
+- Adding a team to the database
+- Adding a team to a tournament
+- Adding people to the database
+- Setting a person's position in a team
+- Setting a player's in-game role 
+
+
+Schema update:
+The previous structure, where team_id would be in the groups table would not work, so team_id has been removed from the groups table and a new groups_teams table has been created.
 
 Tables
 
@@ -32,8 +47,10 @@ Countries (code, name)
 
 --Region (name) -> Europe, Korea, China
 
-Groups (name, tournaments_id, teams_id) OWL_A, OWL_B, OWL_C, OWL_D
+--Groups (name, tournaments_id) OWL_A, OWL_B, OWL_C, OWL_D
 
-Cities (name, country_id)
+--Groups_teams (groups_id, teams_id)
+
+--Cities (name, country_id)
 	
 
