@@ -64,3 +64,27 @@ def people_teams_roles():
 def person_team_role_insert():
     db_insert.insert_into_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
     return redirect("/")
+
+
+@ow_app.route("/in_game_roles")
+def in_game_roles():
+    people_is_player = db_select.select_people_is_player()
+    choices = [(True, "Yes"), (False, "No")]
+    return render_template("in_game_roles.html", people_is_player=people_is_player, choices=choices)
+
+@ow_app.route("/in_game_roles_send", methods=["POST"])
+def in_game_role_insert():
+    db_insert.insert_into_in_game_roles(request.form["person_id"], request.form["damage"], request.form["tank"], request.form["support"])
+    return redirect("/")
+
+
+@ow_app.route("/tournaments_teams")
+def tournaments_teams():
+    tournaments = db_select.select_tournaments()
+    teams = db_select.select_teams()
+    return render_template("tournaments_teams.html", tournaments=tournaments, teams=teams)
+
+@ow_app.route("/tournaments_teams_send", methods=["POST"])
+def tournament_teams_insert():
+    db_insert.insert_into_tournaments_teams(request.form["tournament_id"], request.form["team_id"])
+    return redirect("/")

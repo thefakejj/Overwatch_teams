@@ -3,7 +3,7 @@ from db import ow_db
 
 
 def select_tournaments():
-    result = ow_db.session.execute(text('SELECT name FROM tournaments'))
+    result = ow_db.session.execute(text('SELECT id, name FROM tournaments'))
     selection = result.fetchall()
     return selection
 
@@ -19,5 +19,10 @@ def select_people():
 
 def select_teams():
     result = ow_db.session.execute(text('SELECT id, name FROM teams'))
+    selection = result.fetchall()
+    return selection
+
+def select_people_is_player():
+    result = ow_db.session.execute(text('SELECT people.id, people.name FROM people, people_teams_roles WHERE people.id = people_teams_roles.person_id AND people_teams_roles.player IS NOT null'))
     selection = result.fetchall()
     return selection

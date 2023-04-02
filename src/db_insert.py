@@ -45,6 +45,16 @@ def insert_into_people_teams_roles(person_id, player_team, coach_team, manager_t
     ow_db.session.execute(sql, {"person_id":person_id, "player_team":player_team, "coach_team":coach_team, "manager_team":manager_team})
     ow_db.session.commit()
 
+def insert_into_in_game_roles(person_id, damage, tank, support):
+    sql = text('INSERT INTO in_game_roles (person_id, damage, tank, support) VALUES (:person_id, :damage, :tank, :support)')
+    ow_db.session.execute(sql, {"person_id":person_id, "damage":damage, "tank":tank, "support":support})
+    ow_db.session.commit()
+
+def insert_into_tournaments_teams(tournament_id, team_id):
+    sql = text('INSERT INTO tournaments_teams (tournament_id, team_id) VALUES (:tournament_id, :team_id)')
+    ow_db.session.execute(sql, {"tournament_id":tournament_id, "team_id":team_id})
+    ow_db.session.commit()
+
 
 
 #insert countries into table
