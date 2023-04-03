@@ -29,6 +29,18 @@ Current functionality:
 Schema update:
 The previous structure, where team_id would be in the groups table would not work, so team_id has been removed from the groups table and a new groups_teams table has been created.
 
+
+Improvement idea to the general user experience design:
+To reduce the time required to build teams using the database, people's teams, roles, in-game roles and other information could all be given in the same page where the person themselves is added. In pages where information is added to the database, the redirect could return to the same page, which would make adding large amounts of information easier. In the newly loaded page, there could be an indicator somewhere, which tells the user if the insert was successful, and what was just added to the database. Other possible changes could include a page, where people could be added into a specific team to make the process even faster. 
+
+Database improvement ideas:
+Data checking should be implemented, so that repeating data cannot be added. This would necessitate some functions to edit data, which is a functionality that is completely reasonable to add. However multiple people can have the same name, which makes this more difficult. Repeating references of the same person_id in tables such as people_teams_roles, however, should not be possible. The inclusion of tables for tournament groups may not be necessary, but this will be looked at later.
+
+Although I've gone over many ideas for improvement in this readme, anyone leaving feedback is still welcome to mention any ideas that are already present in this file!
+
+
+A rough overview of the database's tables:
+
 Tables
 
 Teams (name, city_id, --region_id) 
