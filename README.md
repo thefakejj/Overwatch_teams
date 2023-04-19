@@ -9,6 +9,47 @@ Users would be able to search Overwatch League players and teams with different 
 An API will be used to get images of country flags in the program.
 
 
+
+## How to install
+
+1. Clone the repository to your device and go to its root directory.
+
+2. Make a file called .env and set its content to the following:
+```
+DATABASE_URL=<local-address-of-database>
+SECRET_KEY=<secret-key>
+```
+You must create a unique secret key. You can do this by running the following command in the root directory:
+```
+python3 setup.py
+```
+Alternatively, you can go to the python interpreter using
+```
+$ python3
+```
+and run the commands:   
+```
+>>> import secrets
+>>> secrets.token_hex(16)
+```
+
+3. Activate the virtual environment and install the requirements in the root directory.
+```
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r ./requirements.txt
+```
+
+4. Set database scheme. (You'll need to have the psql database running)
+```
+psql < documentation/schema.sql
+```
+
+5. Go to the src folder and run the application using the command:
+```
+flask run
+```
+
 --Tournament matchmaker (possible):
 --If a tournament has  multiple teams, the matchmaker could randomly create matchups.
 

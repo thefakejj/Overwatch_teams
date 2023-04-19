@@ -2,10 +2,7 @@ from app import ow_app
 import db_insert
 import db_select
 
-from flask_sqlalchemy import SQLAlchemy
 from flask import redirect, render_template, request
-from sqlalchemy.sql import text
-
 
 
 @ow_app.route("/")
