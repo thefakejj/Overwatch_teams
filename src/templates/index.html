@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block title %}Home page{% endblock %}
+{% block content %}
 Tournament count: {{ count }}
 <hr>
 List of tournaments:
@@ -31,3 +34,4 @@ Choose table
         <a href="/in_game_roles">Players' in-game roles</a>
     </li>
 </ul>
+{% endblock %}

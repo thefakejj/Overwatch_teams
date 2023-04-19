@@ -1,9 +1,11 @@
 from app import ow_app
 import db_insert
 import db_select
+import db_update
 
 from flask import redirect, render_template, request
 
+# sites intended to be kept (works from user experience standpoint)
 
 @ow_app.route("/")
 def index():
@@ -20,7 +22,7 @@ def tournaments():
 def tournament_insert():
     name = request.form["name"]
     db_insert.insert_into_tournaments(name)
-    return redirect("/")
+    return redirect("/tournaments")
 
 
 @ow_app.route("/teams")
@@ -31,7 +33,14 @@ def teams():
 def team_insert():
     name = request.form["name"]
     db_insert.insert_into_teams(name)
-    return redirect("/")
+    return redirect("/teams")
+
+
+
+
+
+
+
 
 
 @ow_app.route("/people")
@@ -46,7 +55,7 @@ def person_insert():
     status = request.form["status"]
     country_id = int(request.form["country"])
     db_insert.insert_into_people(name, status, country_id)
-    return redirect("/")
+    return redirect("/people")
 
 
 @ow_app.route("/people_teams_roles")
@@ -59,8 +68,11 @@ def people_teams_roles():
 
 @ow_app.route("/people_teams_roles_send", methods=["POST"])
 def person_team_role_insert():
-    db_insert.insert_into_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
-    return redirect("/")
+    if db_select.have_persons_team_roles_been_set(request.form["person_id"]):
+        db_insert.insert_into_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
+    else:
+        db_update.update_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
+    return redirect("/people_teams_roles")
 
 
 @ow_app.route("/in_game_roles")
@@ -71,8 +83,11 @@ def in_game_roles():
 
 @ow_app.route("/in_game_roles_send", methods=["POST"])
 def in_game_role_insert():
-    db_insert.insert_into_in_game_roles(request.form["person_id"], request.form["damage"], request.form["tank"], request.form["support"])
-    return redirect("/")
+    if db_select.has_persons_in_game_roles_been_set(request.form["person_id"]):
+        db_insert.insert_into_in_game_roles(request.form["person_id"], request.form["damage"], request.form["tank"], request.form["support"])
+    else:
+        db_update.update_in_game_roles(request.form["person_id"], request.form["damage"], request.form["tank"], request.form["support"])
+    return redirect("/in_game_roles")
 
 
 @ow_app.route("/tournaments_teams")
@@ -84,4 +99,4 @@ def tournaments_teams():
 @ow_app.route("/tournaments_teams_send", methods=["POST"])
 def tournament_teams_insert():
     db_insert.insert_into_tournaments_teams(request.form["tournament_id"], request.form["team_id"])
-    return redirect("/")
+    return redirect("/tournaments_teams")

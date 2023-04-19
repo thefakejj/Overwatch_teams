@@ -1,5 +1,6 @@
 import add_countries
 from sqlalchemy.sql import text
+import db_service_commands
 from db import ow_db
 
 
@@ -20,28 +21,9 @@ def insert_into_people(name, status, country_id):
     ow_db.session.commit()
 
 def insert_into_people_teams_roles(person_id, player_team, coach_team, manager_team):
-    #html gives everything to /people_teams_roles_send as string, None gives empty string. Here the function converts all valid id's to integers. 
-    if person_id == '':
-        person_id = None
-    else:
-        person_id = int(person_id)
+    person_id, player_team, coach_team, manager_team = db_service_commands.null_fix(person_id, player_team, coach_team, manager_team)
 
-    if player_team == '':
-        player_team = None
-    else:
-        player_team = int(player_team)
-
-    if coach_team == '':
-        coach_team = None
-    else:
-        coach_team = int(coach_team)
-
-    if manager_team == '':
-        manager_team = None
-    else:
-        manager_team = int(manager_team)
-
-    sql = text('INSERT INTO people_teams_roles (person_id, player, coach, manager) VALUES (:person_id, :player_team, :coach_team, :manager_team)')
+    sql = text('INSERT INTO people_teams_roles (person_id, player_team, coach_team, manager_team) VALUES (:person_id, :player_team, :coach_team, :manager_team)')
     ow_db.session.execute(sql, {"person_id":person_id, "player_team":player_team, "coach_team":coach_team, "manager_team":manager_team})
     ow_db.session.commit()
 

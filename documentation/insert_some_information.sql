@@ -60,3 +60,7 @@ INSERT INTO people (name, status, country_id) VALUES ('Stella', 'active', 161);
 --me
 
 INSERT INTO people (name, status, country_id) VALUES ('Yasu', 'active', 59);
+
+INSERT INTO people_teams_roles (person_id, player_team, coach_team, manager_team) VALUES (1, 17, NULL, NULL);
+
+INSERT INTO in_game_roles (person_id, damage, tank, support) VALUES (1, 't', 'f', 'f');
