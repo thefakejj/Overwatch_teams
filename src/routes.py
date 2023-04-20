@@ -3,7 +3,7 @@ import db_insert
 import db_select
 import db_update
 
-from flask import redirect, render_template, request
+from flask import redirect, render_template, request, session
 
 # sites intended to be kept (works from user experience standpoint)
 
