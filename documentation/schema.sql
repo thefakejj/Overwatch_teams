@@ -22,7 +22,7 @@ CREATE TABLE people (
 
 CREATE TABLE in_game_roles (
     id SERIAL PRIMARY KEY,
-    person_id INTEGER REFERENCES people UNIQUE ON DELETE CASCADE,
+    person_id INTEGER REFERENCES people ON DELETE CASCADE UNIQUE,
     damage BOOLEAN,
     tank BOOLEAN,
     support BOOLEAN
@@ -37,7 +37,7 @@ CREATE TABLE teams (
 
 CREATE TABLE people_teams_roles (
     id SERIAL PRIMARY KEY,
-    person_id INTEGER REFERENCES people UNIQUE ON DELETE CASCADE,
+    person_id INTEGER REFERENCES people ON DELETE CASCADE UNIQUE,
     player_team INTEGER REFERENCES teams,
     coach_team INTEGER REFERENCES teams,
     manager_team INTEGER REFERENCES teams
@@ -50,6 +50,11 @@ CREATE TABLE tournaments_teams (
     UNIQUE (tournament_id, team_id)
 );
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE,
+    password TEXT
+);
 /*
 CREATE TABLE groups (
     id SERIAL PRIMARY KEY,

@@ -1,5 +1,5 @@
-import add_countries
 from sqlalchemy.sql import text
+import add_countries
 import db_service_commands
 from db import ow_db
 
@@ -39,10 +39,10 @@ def insert_into_tournaments_teams(tournament_id, team_id):
 
 
 
-#insert countries into table
+# #insert countries into table
 def fill_countries_table():
     countries_table_count = ow_db.session.execute(text('SELECT count(*) from countries;')).fetchone()[0]
     if countries_table_count < 1:
-        add_countries.insert_countries()
+        add_countries.insert_countries(ow_db)
     else:
         print("countries exist in the table")

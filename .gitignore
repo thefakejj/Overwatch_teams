@@ -3,3 +3,4 @@ venv
 .pytest_cache
 esimerkkiohjelma/**
 .env
+**/secret_setup.sql

@@ -1,9 +1,10 @@
+from flask import redirect, render_template, request, session
+
 from app import ow_app
 import db_insert
 import db_select
 import db_update
-
-from flask import redirect, render_template, request, session
+import users_in_db
 
 # sites intended to be kept (works from user experience standpoint)
 
@@ -12,6 +13,22 @@ def index():
     db_insert.fill_countries_table()
     tournaments = db_select.select_tournaments()
     return render_template("index.html", count=len(tournaments), tournaments=tournaments) 
+
+
+
+
+@ow_app.route("/login",methods=["POST"])
+def login():
+    username = request.form["username"]
+    password = request.form["password"]
+    # TODO: check username and password
+    session["username"] = username
+    return redirect("/")
+
+@ow_app.route("/logout")
+def logout():
+    del session["username"]
+    return redirect("/")
 
 
 @ow_app.route("/tournaments")

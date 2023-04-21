@@ -1,8 +1,15 @@
 {% extends "layout.html" %}
 {% block title %}Home page{% endblock %}
 {% block content %}
-Tournament count: {{ count }}
+
+
+{% if session.username %}
+<p>You're logged in as user {{ session.username }}</p>
+<a href="/logout">Logout</a>
 <hr>
+
+Tournament count: {{ count }}
+
 List of tournaments:
 <br>
 <ul>
@@ -34,4 +41,22 @@ Choose table
         <a href="/in_game_roles">Players' in-game roles</a>
     </li>
 </ul>
+
+
+
+{% else %}
+<form action="/login" method="POST">
+<p>Username:<br>
+<input type="text" name="username"></p>
+<p>Password:<br>
+<input type="password" name="password"></p>
+<input type="submit" value="Kirjaudu">
+</form>
+{% endif %}
+
+
+
+
+
+
 {% endblock %}
