@@ -1,3 +1,9 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE,
+    password TEXT
+);
+
 CREATE TABLE tournaments (
     id SERIAL PRIMARY KEY,
     name TEXT UNIQUE,
@@ -51,12 +57,6 @@ CREATE TABLE tournaments_teams (
     tournament_id INTEGER REFERENCES tournaments ON DELETE CASCADE,
     team_id INTEGER REFERENCES teams ON DELETE CASCADE,
     UNIQUE (tournament_id, team_id)
-);
-
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    name TEXT UNIQUE,
-    password TEXT
 );
 /*
 CREATE TABLE groups (

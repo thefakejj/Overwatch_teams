@@ -55,7 +55,7 @@ def tournaments():
 @ow_app.route("/tournaments_send", methods=["POST"])
 def tournament_insert():
     name = request.form["name"]
-    db_insert.insert_into_tournaments(name)
+    db_insert.insert_into_tournaments(name, session["id"])
     return redirect("/tournaments")
 
 

@@ -5,9 +5,9 @@ from db import ow_db
 
 
 # INSERT INTO tournaments (name) VALUES ('Overwatch League')
-def insert_into_tournaments(name):
-    sql = text('INSERT INTO tournaments (name) VALUES (:name)')
-    ow_db.session.execute(sql, {"name":name})
+def insert_into_tournaments(name, user_id):
+    sql = text('INSERT INTO tournaments (name, user_id) VALUES (:name, :user_id)')
+    ow_db.session.execute(sql, {"name":name, "user_id":user_id})
     ow_db.session.commit()
 
 def insert_into_teams(name):
