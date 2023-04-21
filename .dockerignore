@@ -1,0 +1,8 @@
+# flyctl launch added from .gitignore
+**/__pycache__
+**/venv
+**/.pytest_cache
+**/esimerkkiohjelma/**
+**/.env
+**/**/secret_setup.sql
+fly.toml
