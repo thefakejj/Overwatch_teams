@@ -1,23 +1,30 @@
-# fly.toml app configuration file generated for overwatch-teams on 2023-04-21T17:28:59+03:00
+# fly.toml app configuration file generated for overwatch-teams on 2023-04-21T17:32:41+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = "overwatch-teams"
-primary_region = "arn"
+primary_region = "ams"
 
 [build]
   image = "flyio/hellofly:latest"
 
-[http_service]
+[env]
+  PORT = "5000"
+
+[[services]]
   internal_port = 5000
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
 
 [checks]
   [checks.alive]
-    type = "tcp"
+    port = 5000
+    grace_period = "5s"
     interval = "15s"
     timeout = "2s"
-    grace_period = "5s"
+    type = "tcp"
+
+[http_service]
+  auto_start_machines = true
+  auto_stop_machines = true
+  force_https = true
+  internal_port = 8080
