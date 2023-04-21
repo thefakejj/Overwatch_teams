@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Home page{% endblock %}
+{% block content %}
+
+<form action="/register" method="POST">
+<p>Username:<br>
+<input type="text" name="username"></p>
+<p>Password:<br>
+<input type="password" name="password"></p>
+<input type="submit" value="Register">
+{% block error %}{% endblock %}
+</form>
+
+{% endblock %}

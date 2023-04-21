@@ -15,17 +15,33 @@ def index():
     return render_template("index.html", count=len(tournaments), tournaments=tournaments) 
 
 
+@ow_app.route("/register")
+def register():
+    return render_template("register.html")
 
+@ow_app.route("/register",methods=["POST"])
+def register_insert():
+    username = request.form["username"]
+    password = request.form["password"]
+    print("1")
+    # TODO: check username and password
+    if users_in_db.insert_user(username, password):
+        print("2")
+        session["username"] = username
+    else:
+        print("3")
+        return render_template("error.html", site="register.html", message="Username already exists")
+    print("4")
+    return redirect("/")
 
 @ow_app.route("/login",methods=["POST"])
 def login():
     username = request.form["username"]
     password = request.form["password"]
-    # TODO: check username and password
     if users_in_db.check_username_password(username, password):
         session["username"] = username
     else:
-        return render_template("error_login.html", message="Invalid username or password")
+        return render_template("error.html", site="index.html", message="Invalid username or password")
     return redirect("/")
 
 @ow_app.route("/logout")
