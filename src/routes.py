@@ -22,7 +22,10 @@ def login():
     username = request.form["username"]
     password = request.form["password"]
     # TODO: check username and password
-    session["username"] = username
+    if users_in_db.check_username_password(username, password):
+        session["username"] = username
+    else:
+        return render_template("error_login.html", message="Invalid username or password")
     return redirect("/")
 
 @ow_app.route("/logout")

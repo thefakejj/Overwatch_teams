@@ -50,8 +50,10 @@ Choose table
 <input type="text" name="username"></p>
 <p>Password:<br>
 <input type="password" name="password"></p>
-<input type="submit" value="Kirjaudu">
+<input type="submit" value="Log in">
+{% block error %}{% endblock %}
 </form>
+
 {% endif %}
 
 
