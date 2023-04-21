@@ -23,22 +23,20 @@ def register():
 def register_insert():
     username = request.form["username"]
     password = request.form["password"]
-    print("1")
     # TODO: check username and password
     if users_in_db.insert_user(username, password):
-        print("2")
+        session["id"] = users_in_db.insert_user(username, password)[1]
         session["username"] = username
     else:
-        print("3")
         return render_template("error.html", site="register.html", message="Username already exists")
-    print("4")
     return redirect("/")
 
 @ow_app.route("/login",methods=["POST"])
 def login():
     username = request.form["username"]
     password = request.form["password"]
-    if users_in_db.check_username_password(username, password):
+    if users_in_db.check_username_password(username, password)[0]:
+        session["id"] = users_in_db.check_username_password(username, password)[1]
         session["username"] = username
     else:
         return render_template("error.html", site="index.html", message="Invalid username or password")

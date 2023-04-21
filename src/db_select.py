@@ -1,7 +1,6 @@
 from sqlalchemy.sql import text
 from db import ow_db
 
-
 def select_tournaments():
     result = ow_db.session.execute(text('SELECT id, name FROM tournaments'))
     selection = result.fetchall()
@@ -15,6 +14,16 @@ def select_countries():
 def select_people():
     result = ow_db.session.execute(text('SELECT id, name FROM people'))
     selection = result.fetchall()
+    return selection
+
+def select_allowed_people(user_id):
+    # the user with user_id 1 is admin, therefore they should get access to everyone in whatever selection
+    # the users table could have an admin column as well, then this function should be edited
+    if user_id == 1:
+        selection = select_people()
+    else:
+        result = ow_db.session.execute(text('SELECT id, name FROM people WHERE user_id = {user_id}'))
+        selection = result.fetchall()
     return selection
 
 def select_teams():

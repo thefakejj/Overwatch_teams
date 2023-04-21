@@ -1,6 +1,7 @@
 CREATE TABLE tournaments (
     id SERIAL PRIMARY KEY,
-    name TEXT UNIQUE
+    name TEXT UNIQUE,
+    user_id INTEGER REFERENCES users
 );
 
 CREATE TABLE countries (
@@ -16,6 +17,7 @@ CREATE TABLE people (
     name TEXT,
     status person_status,
     country_id INTEGER REFERENCES countries,
+    user_id INTEGER REFERENCES users,
     UNIQUE (name, country_id)
 );
 --status must be one of active/inactive/retired/deceased
@@ -30,7 +32,8 @@ CREATE TABLE in_game_roles (
 
 CREATE TABLE teams (
     id SERIAL PRIMARY KEY,
-    name TEXT UNIQUE
+    name TEXT UNIQUE,
+    user_id INTEGER REFERENCES users
 );
 --city_id INTEGER REFERENCES cities,
 --region_id INTEGER REFERENCES regions
