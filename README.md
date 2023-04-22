@@ -40,12 +40,12 @@ $ source venv/bin/activate
 $ pip install -r ./requirements.txt
 ```
 
-4. Set database scheme. (You'll need to have the psql database running)
+4. Set database schema. (You'll need to have the psql database running)
 ```
 psql < documentation/schema.sql
 ```
 
-5. Go to the src folder and run the application using the command:
+5.  Run the application using the command:
 ```
 flask run
 ```
