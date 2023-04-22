@@ -26,7 +26,7 @@ CREATE TABLE people (
     user_id INTEGER REFERENCES users,
     UNIQUE (name, country_id)
 );
-
+--status must be one of active/inactive/retired/deceased
 
 CREATE TABLE in_game_roles (
     id SERIAL PRIMARY KEY,
@@ -41,6 +41,8 @@ CREATE TABLE teams (
     name TEXT UNIQUE,
     user_id INTEGER REFERENCES users
 );
+--city_id INTEGER REFERENCES cities,
+--region_id INTEGER REFERENCES regions
 
 CREATE TABLE people_teams_roles (
     id SERIAL PRIMARY KEY,
@@ -56,3 +58,30 @@ CREATE TABLE tournaments_teams (
     team_id INTEGER REFERENCES teams ON DELETE CASCADE,
     UNIQUE (tournament_id, team_id)
 );
+/*
+CREATE TABLE groups (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    tournament_id INTEGER REFERENCES tournaments ON DELETE CASCADE,
+    UNIQUE (name, tournament_id)
+);
+
+CREATE TABLE groups_teams (
+    id SERIAL PRIMARY KEY,
+    group_id INTEGER REFERENCES groups ON DELETE CASCADE,
+    team_id INTEGER REFERENCES teams,
+    UNIQUE (group_id, team_id)
+);
+
+CREATE TABLE regions (
+    id SERIAL PRIMARY KEY,
+    name TEXT UNQIUE
+);
+
+CREATE TABLE cities (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    country_id INTEGER REFERENCES countries
+    UNIQUE (name, country_id)
+);
+*/
