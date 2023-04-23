@@ -37,7 +37,7 @@ and run the commands:
 ```
 $ python3 -m venv venv
 $ source venv/bin/activate
-$ pip install -r ./requirements.txt
+$ pip install -r requirements.txt
 ```
 
 4. Set database schema. (You'll need to have the psql database running)
@@ -49,6 +49,14 @@ psql < documentation/schema.sql
 ```
 flask run
 ```
+
+After you've created an account, you can run the command
+```
+psql < documentation/insert_some_information.sql
+```
+which will insert some information to the database as a test.
+This information will be added with the user_id '1', so whatever the first user you created was will be able to use data added along this command.
+
 
 --Tournament matchmaker (possible):
 --If a tournament has  multiple teams, the matchmaker could randomly create matchups.
