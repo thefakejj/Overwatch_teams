@@ -5,6 +5,7 @@ import db_insert
 import db_select
 import db_update
 import users_in_db
+import formatting
 
 # sites intended to be kept (works from user experience standpoint)
 
@@ -49,8 +50,8 @@ def logout():
 
 @ow_app.route("/tournaments")
 def tournaments():
-    tournaments = db_select.select_tournaments()
-    return render_template("tournaments.html", count=len(tournaments), tournaments=tournaments)
+    tournament_list = db_select.select_all_tournaments()
+    return render_template("tournaments.html", count=len(tournament_list), tournament_list=tournament_list)
 
 @ow_app.route("/tournaments_send", methods=["POST"])
 def tournament_insert():
@@ -93,25 +94,63 @@ def new_people():
 
 @ow_app.route("/new_people_send", methods=["POST"])
 def new_people_insert():
-    person_id = db_select.select_all_people_count()+1
+    # unfortunately with the routes being split into two (new_people and new_people_send), 
+    # the send routes will not get access to the countries table unless the lists are created again.
+    person_id = db_select.select_max_people_id()+1
     user_id = users_in_db.get_session_user_id(session["username"])
+
+    # everything is created again to allow these when errors occur :/
+    countries = db_select.select_countries()
+    statuses = ['active', 'inactive', 'retired', 'deceased']
+    teams = [None]
+    for team in db_select.select_teams(user_id):
+        teams.append(team)
+    choices = [(True, "Yes"), (False, "No")]
+
     # people table
-    name = str(request.form["name"])
-    status = str(request.form["status"])
+    name = request.form["name"]
+    status = request.form["status"]
     country_id = int(request.form["country"])
     # checking if person already exists in database
     if db_select.has_person_been_added(name, country_id):
         message = "This person already exists in the database! You can edit a person's team roles or in game roles using the update functinalities."
-        return render_template("error.html", site="new_people.html", message=message)
+        return render_template("error.html", site="new_people.html", message=message, countries=countries, statuses=statuses, teams=teams, choices=choices)
 
-    # inserting information into people table
-    db_insert.insert_into_people(name, status, country_id, user_id)
-
-    # people teams roles table
-    db_insert.insert_into_people_teams_roles(person_id, request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
+    # checking if at least one in game role was selected
+    count_of_in_game_roles = 0
+    for role in [request.form["damage"], request.form["tank"], request.form["support"]]:
+        if role == 'True':
+            count_of_in_game_roles += 1
+            print("count is", count_of_in_game_roles)
     
-    # in game roles table
-    db_insert.insert_into_in_game_roles(person_id, request.form["damage"], request.form["tank"], request.form["support"])
+    print("type:", type(request.form["player_team"]))
+    print("form sisältää:", request.form["player_team"])
+    
+
+    # if the user selected a player_team and in game roles for the person, information is inserted into all three tables
+    if request.form["player_team"] != '' and count_of_in_game_roles > 0:
+        db_insert.insert_into_people(name, status, country_id, user_id)
+        db_insert.insert_into_people_teams_roles(person_id, request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
+        db_insert.insert_into_in_game_roles(person_id, request.form["damage"], request.form["tank"], request.form["support"])
+    
+    # if the user player_team but no in game roles, information is inserted into all three tables
+    elif request.form["player_team"] != ''  and count_of_in_game_roles == 0:
+        db_insert.insert_into_people(name, status, country_id, user_id)
+        db_insert.insert_into_people_teams_roles(person_id, request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
+        db_insert.insert_into_in_game_roles(person_id, request.form["damage"], request.form["tank"], request.form["support"])
+
+    # if the user didn't select a player_team but did select in game roles, no information gets inserted and a corresponding error is displayed
+    elif request.form["player_team"] == ''  and count_of_in_game_roles > 0:
+        message = 'Person was not a player! If the person is not supposed to be a player, leave all in game roles as "No". Otherwise choose a team for the player.'
+        return render_template("error.html", site="new_people.html", message=message, countries=countries, statuses=statuses, teams=teams, choices=choices)
+    
+    # if the user didnt select a player_team or an in game role, the person is added to the database with information inserted
+    else:
+        db_insert.insert_into_people(name, status, country_id, user_id)
+        db_insert.insert_into_people_teams_roles(person_id, request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
+        db_insert.insert_into_in_game_roles(person_id, request.form["damage"], request.form["tank"], request.form["support"])
+    
+    
     return redirect("/new_people")
 
 
@@ -159,7 +198,10 @@ def update_in_game_role_insert():
 @ow_app.route("/tournaments_teams")
 def tournaments_teams():
     user_id = users_in_db.get_session_user_id(session["username"])
-    tournaments = db_select.select_tournaments()
+    if user_id == 1:
+        tournaments = db_select.select_all_tournaments()
+    else:
+        tournaments = db_select.select_tournaments()
     teams = db_select.select_teams(user_id)
     return render_template("tournaments_teams.html", tournaments=tournaments, teams=teams)
 

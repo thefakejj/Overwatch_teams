@@ -7,6 +7,11 @@ def select_users_count():
     return selection[0]
 
 def select_tournaments():
+    result = ow_db.session.execute(text("SELECT id, name FROM tournaments WHERE name NOT IN ('Overwatch League', 'Overwatch Contenders', 'Pro-Am', 'SuomiOW Greatest Hits')"))
+    display = result.fetchall()
+    return display
+
+def select_all_tournaments():
     result = ow_db.session.execute(text('SELECT id, name FROM tournaments'))
     selection = result.fetchall()
     return selection
@@ -36,12 +41,22 @@ def select_all_people_count():
     selection = result.fetchone()
     return selection[0]
 
+def select_max_people_id():
+    result = ow_db.session.execute(text('SELECT MAX(id) FROM people'))
+    selection = result.fetchone()
+    return selection[0]
+
 def select_teams(user_id):
     result = ow_db.session.execute(text(f'SELECT id, name FROM teams WHERE user_id = {user_id}'))
     selection = result.fetchall()
     return selection
 
 def select_people_is_player(user_id):
+    result = ow_db.session.execute(text(f'SELECT people.id, people.name FROM people, people_teams_roles WHERE people.id = people_teams_roles.person_id AND people_teams_roles.player_team IS NOT null AND people.user_id = {user_id}'))
+    selection = result.fetchall()
+    return selection
+
+def select_person_is_player(user_id):
     result = ow_db.session.execute(text(f'SELECT people.id, people.name FROM people, people_teams_roles WHERE people.id = people_teams_roles.person_id AND people_teams_roles.player_team IS NOT null AND people.user_id = {user_id}'))
     selection = result.fetchall()
     return selection

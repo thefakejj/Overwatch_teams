@@ -10,7 +10,7 @@
         status: <br>
         <SELECT name="status">
         <br>
-                {% for status in statuses %}
+                {% for status in ['active', 'inactive', 'retired', 'deceased'] %}
                     <OPTION value={{status}}>{{status}}</option>
                 {% endfor %}
                 </SELECT>
