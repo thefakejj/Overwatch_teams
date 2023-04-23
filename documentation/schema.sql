@@ -19,11 +19,10 @@ CREATE TYPE person_status AS ENUM ('active', 'inactive', 'retired', 'deceased');
 
 CREATE TABLE people (
     id SERIAL PRIMARY KEY,
-    name TEXT,
+    name TEXT UNIQUE,
     status person_status,
     country_id INTEGER REFERENCES countries,
-    user_id INTEGER REFERENCES users,
-    UNIQUE (name, country_id)
+    user_id INTEGER REFERENCES users
 );
 
 

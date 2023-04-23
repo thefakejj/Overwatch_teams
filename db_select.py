@@ -77,8 +77,8 @@ def have_persons_team_roles_been_set(person_id):
     else:
         return True
 
-def has_person_been_added(name, country_id):
-    result = ow_db.session.execute(text(f"SELECT count(*) FROM people WHERE name = '{name}' AND country_id = '{country_id}'"))
+def has_person_been_added(name):
+    result = ow_db.session.execute(text(f"SELECT count(*) FROM people WHERE name = '{name}'"))
     selection = result.fetchone()
     if int(selection[0]) > 0:
         return True

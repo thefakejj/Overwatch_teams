@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}People search{% endblock %}
+{% block content %}
+
+    <h2>Welcome to the people search</h2>
+
+    <br>
+    <br>
+
+    Use the filtering functions to find players
+
+    <br>
+    <br>
+
+    <form action="/search_players_send" method="POST">
+        Search: <br>
+        <textarea name="search:" rows="3" cols="40"></textarea>
+        <br>
+        <input type="submit" value="update">
+        </form>
+
+    <br>
+    <br>
+
+        {% for row in selection %}
+        {{ row }}<br>
+        {% endfor %}
+
+    <br>
+    <br>
+
+
+{% endblock %}
+
