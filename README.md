@@ -1,6 +1,7 @@
 # Overwatch teams application
 
 
+
 Player database:
 Admin can log in and add players the database. In the future, regular users will be able to add their own teams and manage them. The application would have a graphical user interface. The program would use an API to get small images of country flags, which would be displayed on the list of search results corresponding to the player's nationality code.
 
@@ -8,7 +9,7 @@ Users would be able to search Overwatch League players and teams with different 
 
 An API will be used to get images of country flags in the program.
 
-
+## THIS APP IS NOT AVAILABLE ON FLY.IO
 
 ## How to install
 
