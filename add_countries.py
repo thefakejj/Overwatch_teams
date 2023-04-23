@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 
 def get_country_tuples():
     countries_list = []
-    with open('../Data/countries.csv', newline='', encoding='utf-8') as csvfile:
+    with open('./Data/countries.csv', newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             code = row[0]

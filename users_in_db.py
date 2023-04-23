@@ -24,7 +24,7 @@ def insert_user(username, password):
         ow_db.session.execute(sql, {"username":username, "password":hash_value})
         ow_db.session.commit()
         user_id = get_session_user_id(username)
-        return True, user_id
+        return True
     else:
         return False
 

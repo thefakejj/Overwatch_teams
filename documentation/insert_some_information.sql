@@ -8,29 +8,29 @@ INSERT INTO tournaments (name) VALUES ('SuomiOW Greatest Hits');
 --insert into teams
 
 --OWL teams
-INSERT INTO teams (name) VALUES ('Atlanta Reign');
-INSERT INTO teams (name) VALUES ('Boston Uprising');
-INSERT INTO teams (name) VALUES ('Chengdu Hunters');
-INSERT INTO teams (name) VALUES ('Dallas Fuel');
-INSERT INTO teams (name) VALUES ('Florida Mayhem');
-INSERT INTO teams (name) VALUES ('Guangzhou Charge');
-INSERT INTO teams (name) VALUES ('Hangzhou Spark');
-INSERT INTO teams (name) VALUES ('Houston Outlaws');
-INSERT INTO teams (name) VALUES ('London Spitfire');
-INSERT INTO teams (name) VALUES ('Los Angeles Gladiators');
-INSERT INTO teams (name) VALUES ('Los Angeles Valiant');
-INSERT INTO teams (name) VALUES ('New York Excelsior');
-INSERT INTO teams (name) VALUES ('San Francisco Shock');
-INSERT INTO teams (name) VALUES ('Seoul Dynasty');
-INSERT INTO teams (name) VALUES ('Seoul Infernal');
-INSERT INTO teams (name) VALUES ('Shanghai Dragons');
-INSERT INTO teams (name) VALUES ('Toronto Defiant');
-INSERT INTO teams (name) VALUES ('Vancouver Titans');
-INSERT INTO teams (name) VALUES ('Vegas Eternal');
-INSERT INTO teams (name) VALUES ('Washington Justice');
+INSERT INTO teams (name, user_id) VALUES ('Atlanta Reign', 1);
+INSERT INTO teams (name, user_id) VALUES ('Boston Uprising', 1);
+INSERT INTO teams (name, user_id) VALUES ('Chengdu Hunters', 1);
+INSERT INTO teams (name, user_id) VALUES ('Dallas Fuel', 1);
+INSERT INTO teams (name, user_id) VALUES ('Florida Mayhem', 1);
+INSERT INTO teams (name, user_id) VALUES ('Guangzhou Charge', 1);
+INSERT INTO teams (name, user_id) VALUES ('Hangzhou Spark', 1);
+INSERT INTO teams (name, user_id) VALUES ('Houston Outlaws', 1);
+INSERT INTO teams (name, user_id) VALUES ('London Spitfire', 1);
+INSERT INTO teams (name, user_id) VALUES ('Los Angeles Gladiators', 1);
+INSERT INTO teams (name, user_id) VALUES ('Los Angeles Valiant', 1);
+INSERT INTO teams (name, user_id) VALUES ('New York Excelsior', 1);
+INSERT INTO teams (name, user_id) VALUES ('San Francisco Shock', 1);
+INSERT INTO teams (name, user_id) VALUES ('Seoul Dynasty', 1);
+INSERT INTO teams (name, user_id) VALUES ('Seoul Infernal', 1);
+INSERT INTO teams (name, user_id) VALUES ('Shanghai Dragons', 1);
+INSERT INTO teams (name, user_id) VALUES ('Toronto Defiant', 1);
+INSERT INTO teams (name, user_id) VALUES ('Vancouver Titans', 1);
+INSERT INTO teams (name, user_id) VALUES ('Vegas Eternal', 1);
+INSERT INTO teams (name, user_id) VALUES ('Washington Justice', 1);
 
 --own teams XD
-INSERT INTO teams (name) VALUES ('Yasun Hasut');
+INSERT INTO teams (name, user_id) VALUES ('Yasun Hasut', 1);
 
 
 --insert into people
@@ -38,28 +38,28 @@ INSERT INTO teams (name) VALUES ('Yasun Hasut');
 --lets start with Toronto Defiant
 --their players
 
-INSERT INTO people (name, status, country_id) VALUES ('Hydron', 'active', 185);
-INSERT INTO people (name, status, country_id) VALUES ('s9mm', 'active', 185);
-INSERT INTO people (name, status, country_id) VALUES ('Speedily', 'active', 185);
-INSERT INTO people (name, status, country_id) VALUES ('Coluge', 'active', 185);
-INSERT INTO people (name, status, country_id) VALUES ('Ojee', 'active', 185);
-INSERT INTO people (name, status, country_id) VALUES ('UltraViolet', 'active', 185);
-INSERT INTO people (name, status, country_id) VALUES ('SirMajed', 'active', 150);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('Hydron', 'active', 185, 1);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('s9mm', 'active', 185, 1);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('Speedily', 'active', 185, 1);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('Coluge', 'active', 185, 1);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('Ojee', 'active', 185, 1);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('UltraViolet', 'active', 185, 1);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('SirMajed', 'active', 150, 1);
 
 --coaches
 
-INSERT INTO people (name, status, country_id) VALUES ('Casores', 'active', 122);
-INSERT INTO people (name, status, country_id) VALUES ('NoHill', 'active', 36);
-INSERT INTO people (name, status, country_id) VALUES ('Wheats', 'active', 185);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('Casores', 'active', 122, 1);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('NoHill', 'active', 36, 1);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('Wheats', 'active', 185, 1);
 
 --manager
 
-INSERT INTO people (name, status, country_id) VALUES ('Stella', 'active', 161);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('Stella', 'active', 161, 1);
 
 
 --me
 
-INSERT INTO people (name, status, country_id) VALUES ('Yasu', 'active', 59);
+INSERT INTO people (name, status, country_id, user_id) VALUES ('Yasu', 'active', 59, 1);
 
 INSERT INTO people_teams_roles (person_id, player_team, coach_team, manager_team) VALUES (1, 17, NULL, NULL);
 

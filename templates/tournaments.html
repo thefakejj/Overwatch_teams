@@ -9,4 +9,18 @@
     <br>
     <input type="submit" value="add">
     </form>
+
+        <br>
+        <br>
+        Current tournament count: {{ count }}
+        <br>
+
+        List of tournaments:
+        <br>
+        <ul>
+            {% for tournament in tournaments %}
+            <li>{{ tournament.name }}</li>
+        
+            {% endfor %}
+        </ul>
 {% endblock %}

@@ -6,8 +6,7 @@ CREATE TABLE users (
 
 CREATE TABLE tournaments (
     id SERIAL PRIMARY KEY,
-    name TEXT UNIQUE,
-    user_id INTEGER REFERENCES users
+    name TEXT UNIQUE
 );
 
 CREATE TABLE countries (

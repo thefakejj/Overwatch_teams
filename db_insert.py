@@ -5,19 +5,19 @@ from db import ow_db
 
 
 # INSERT INTO tournaments (name) VALUES ('Overwatch League')
-def insert_into_tournaments(name, user_id):
-    sql = text('INSERT INTO tournaments (name, user_id) VALUES (:name, :user_id)')
-    ow_db.session.execute(sql, {"name":name, "user_id":user_id})
-    ow_db.session.commit()
-
-def insert_into_teams(name):
-    sql = text('INSERT INTO teams (name) VALUES (:name)')
+def insert_into_tournaments(name):
+    sql = text('INSERT INTO tournaments (name) VALUES (:name)')
     ow_db.session.execute(sql, {"name":name})
     ow_db.session.commit()
 
-def insert_into_people(name, status, country_id):
-    sql = text('INSERT INTO people (name, status, country_id) VALUES (:name, :status, :country_id)')
-    ow_db.session.execute(sql, {"name":name, "status":status, "country_id":country_id})
+def insert_into_teams(name, user_id):
+    sql = text(f'INSERT INTO teams (name, user_id) VALUES (:name, :user_id)')
+    ow_db.session.execute(sql, {"name":name, "user_id":user_id})
+    ow_db.session.commit()
+
+def insert_into_people(name, status, country_id, user_id):
+    sql = text('INSERT INTO people (name, status, country_id, user_id) VALUES (:name, :status, :country_id, :user_id)')
+    ow_db.session.execute(sql, {"name":name, "status":status, "country_id":country_id, "user_id":user_id})
     ow_db.session.commit()
 
 def insert_into_people_teams_roles(person_id, player_team, coach_team, manager_team):

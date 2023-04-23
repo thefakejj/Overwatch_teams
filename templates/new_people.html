@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% block title %}Add a person{% endblock %}
+{% block content %}
+    <form action="/new_people_send" method="POST">
+    Add a person <br>
+    <br>
+        name: <br>
+        <textarea name="name" rows="1" cols="40"></textarea>
+        <br>
+        status: <br>
+        <SELECT name="status">
+        <br>
+                {% for status in statuses %}
+                    <OPTION value={{status}}>{{status}}</option>
+                {% endfor %}
+                </SELECT>
+            
+        <br>
+        country: <br>
+        <SELECT name="country">
+        <br>
+            {% for country in countries %}
+                <OPTION value={{country.id}}>{{country.name}}</option>
+            {% endfor %}
+            </SELECT>
+        <br>
+        <br>
+
+    Which team is this person associated with?
+    <br>
+    A person can be a player, manager or a coach simultaneously on the same team or on separate teams.
+    <br>
+    Leave selection empty if the person does not fulfill that role.
+    <br>
+    <br>
+
+        Are they a player for a team?: <br>
+        <SELECT name="player_team">
+        <br>
+            {% for team in teams %}
+                <OPTION value={{team.id}}>{{team.name}}</option>
+            {% endfor %}
+            </SELECT>
+        <br>
+
+        Are they a coach for a team?: <br>
+        <SELECT name="coach_team">
+        <br>
+            {% for team in teams %}
+                <OPTION value={{team.id}}>{{team.name}}</option>
+            {% endfor %}
+            </SELECT>
+        <br>
+
+        Are they a manager for a team?: <br>
+        <SELECT name="manager_team">
+        <br>
+            {% for team in teams %}
+                <OPTION value={{team.id}}>{{team.name}}</option>
+            {% endfor %}
+            </SELECT>
+        <br>
+        <br>
+
+        
+    If the person is a player, what roles do they play? If person isn't a player, leave all selections as "No".
+    <br>
+    <br>
+        Are they a damage player?: <br>
+        <SELECT name="damage">
+        <br>
+    
+            <OPTION value={{False}}>No</option>
+            <OPTION value={{True}}>Yes</option>
+                
+        </SELECT>
+        <br>
+
+        Are they a tank player?: <br>
+            <SELECT name="tank">
+        <br>
+        
+                <OPTION value={{False}}>No</option>
+                <OPTION value={{True}}>Yes</option>
+                    
+            </SELECT>
+        <br>
+
+        Are they a support player?: <br>
+            <SELECT name="support">
+        <br>
+        
+                <OPTION value={{False}}>No</option>
+                <OPTION value={{True}}>Yes</option>
+                    
+            </SELECT>
+        <br>
+        <br>
+
+
+    <input type="submit" value="add">
+    </form>
+{% endblock %}

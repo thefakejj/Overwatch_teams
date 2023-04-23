@@ -8,41 +8,33 @@
 <a href="/logout">Logout</a>
 <hr>
 
-Tournament count: {{ count }}
-
-List of tournaments:
+Welcome to the Overwatch Teams database app!
 <br>
-<ul>
-    {% for tournament in tournaments %}
-    <li>{{ tournament.name }}</li>
+If you haven't already, start by adding your team to the database below. After this, you can add players to your team! 
 
-    {% endfor %}
-</ul>
 <br>
-Choose table
+NEW AGE STUFF
 <br>
 <ul>
     <li>
-        <a href="/tournaments">Tournaments</a>
+        <a href="/teams">Add teams to the database</a>
     </li>
     <li>
-        <a href="/teams">Teams</a>
+        <a href="/new_people">Add people to the database</a>
+
+    <li>
+        <a href="/tournaments">Add tournaments to the database</a>
     </li>
     <li>
-        <a href="/tournaments_teams">Which tournaments teams play in</a>
+        <a href="/tournaments_teams">Add teams to tournaments</a>
     </li>
     <li>
-        <a href="/people">People</a>
+        <a href="/update_people_teams_roles">Update people's roles on teams</a>
     </li>
     <li>
-        <a href="/people_teams_roles">People's roles on teams</a>
-    </li>
-    <li>
-        <a href="/in_game_roles">Players' in-game roles</a>
+        <a href="/update_in_game_roles">Update player's in-game roles</a>
     </li>
 </ul>
-
-
 
 {% else %}
 <a href="/register">Create an account</a>
@@ -55,14 +47,9 @@ Login
 <p>Password:<br>
 <input type="password" name="password"></p>
 <input type="submit" value="Log in">
-{% block error %}{% endblock %}
 </form>
 
 {% endif %}
-
-
-
-
 
 
 {% endblock %}
