@@ -25,7 +25,6 @@ CREATE TABLE people (
     user_id INTEGER REFERENCES users
 );
 
-
 CREATE TABLE in_game_roles (
     id SERIAL PRIMARY KEY,
     person_id INTEGER REFERENCES people ON DELETE CASCADE UNIQUE,

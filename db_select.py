@@ -32,12 +32,23 @@ def select_people(user_id):
     if user_id == 1:
         selection = select_people_all()
     else:
-        result = ow_db.session.execute(text(f'SELECT id, name FROM people WHERE user_id = {user_id}'))
+        sql = (text(f'SELECT id, name FROM people WHERE user_id = :user_id'))
+        result = ow_db.session.execute(sql, {"user_id":user_id})
         selection = result.fetchall()
     return selection
 
+
+# def insert_into_people(name, status, country_id, user_id):
+#     sql = text('INSERT INTO people (name, status, country_id, user_id) VALUES (:name, :status, :country_id, :user_id)')
+#     ow_db.session.execute(sql, {"name":name, "status":status, "country_id":country_id, "user_id":user_id})
+#     ow_db.session.commit()
+
+
+
+
+
 def select_all_people_count():
-    result = ow_db.session.execute(text('SELECT count(*) FROM people'))
+    result = ow_db.session.execute(text('SELECT COUNT(*) FROM people'))
     selection = result.fetchone()
     return selection[0]
 
@@ -47,22 +58,38 @@ def select_max_people_id():
     return selection[0]
 
 def select_teams(user_id):
-    result = ow_db.session.execute(text(f'SELECT id, name FROM teams WHERE user_id = {user_id}'))
+    sql = text('SELECT id, name FROM teams WHERE user_id = :user_id')
+    result = ow_db.session.execute(sql, {"user_id":user_id})
     selection = result.fetchall()
     return selection
 
 def select_people_is_player(user_id):
-    result = ow_db.session.execute(text(f'SELECT people.id, people.name FROM people, people_teams_roles WHERE people.id = people_teams_roles.person_id AND people_teams_roles.player_team IS NOT null AND people.user_id = {user_id}'))
+    sql = text('''
+        SELECT people.id, people.name
+        FROM people, people_teams_roles
+        WHERE people.id = people_teams_roles.person_id
+        AND people_teams_roles.player_team IS NOT null
+        AND people.user_id = :user_id
+    ''')
+    result = ow_db.session.execute(sql, {"user_id":user_id})
     selection = result.fetchall()
     return selection
 
 def select_person_is_player(user_id):
-    result = ow_db.session.execute(text(f'SELECT people.id, people.name FROM people, people_teams_roles WHERE people.id = people_teams_roles.person_id AND people_teams_roles.player_team IS NOT null AND people.user_id = {user_id}'))
+    sql = text('''
+        SELECT people.id, people.name
+        FROM people, people_teams_roles
+        WHERE people.id = people_teams_roles.person_id
+        AND people_teams_roles.player_team IS NOT null
+        AND people.user_id = :user_id
+    ''')
+    result = ow_db.session.execute(sql, {"user_id":user_id})
     selection = result.fetchall()
     return selection
 
 def has_persons_in_game_roles_been_set(person_id):
-    result  = ow_db.session.execute(text(f'SELECT * from in_game_roles where person_id = {person_id}'))
+    sql  = text('SELECT * FROM in_game_roles WHERE person_id = :person_id')
+    result = ow_db.session.execute(sql, {"person_id":person_id})
     selection = result.fetchall()
     if len(selection) == 0:
         return True
@@ -70,7 +97,8 @@ def has_persons_in_game_roles_been_set(person_id):
         return False
     
 def have_persons_team_roles_been_set(person_id):
-    result  = ow_db.session.execute(text(f'SELECT * from people_teams_roles where person_id = {person_id}'))
+    sql  = text('SELECT * FROM people_teams_roles WHERE person_id = :person_id')
+    result = ow_db.session.execute(sql, {"person_id":person_id})
     selection = result.fetchall()
     if len(selection) == 0:
         return False
@@ -78,7 +106,10 @@ def have_persons_team_roles_been_set(person_id):
         return True
 
 def has_person_been_added(name):
-    result = ow_db.session.execute(text(f"SELECT count(*) FROM people WHERE name = '{name}'"))
+    sql = text("SELECT count(*) FROM people WHERE name = :name")
+    result = ow_db.session.execute(sql, {"name":name})
     selection = result.fetchone()
     if int(selection[0]) > 0:
         return True
+    else:
+        return False
