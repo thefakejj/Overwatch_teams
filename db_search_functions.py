@@ -24,9 +24,9 @@ def searching_player_name(input):
             WHERE people.id = people_teams_roles.person_id
             AND people_teams_roles.player_team = teams.id
             AND people.country_id = countries.id
-            AND LOWER(people.name) LIKE '%:input%'
+            AND LOWER(people.name) LIKE :input
         ''')
-        result = ow_db.session.execute(sql, {"input":input})
+        result = ow_db.session.execute(sql, {"input":"%"+input+"%"})
         selection = result.fetchall()
     return selection
 

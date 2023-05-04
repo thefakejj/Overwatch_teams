@@ -3,6 +3,5 @@ def strip(string):
 
 def format_fully(input):
     input = strip(input)
-    pass
     return input
     # if there were to be more formatting

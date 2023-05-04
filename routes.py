@@ -6,7 +6,7 @@ import db_select
 import db_update
 import users_in_db
 import db_search_functions
-import formatting
+from formatting import format_fully
 
 # sites intended to be kept (works from user experience standpoint)
 
@@ -22,8 +22,8 @@ def register():
 
 @ow_app.route("/register",methods=["POST"])
 def register_insert():
-    username = request.form["username"]
-    password = request.form["password"]
+    username = format_fully(request.form["username"])
+    password = format_fully(request.form["password"])
     if users_in_db.insert_user(username, password):
         users_in_db.insert_user(username, password)
         session["id"] = users_in_db.get_session_user_id(username)
@@ -56,7 +56,7 @@ def tournaments():
 
 @ow_app.route("/tournaments_send", methods=["POST"])
 def tournament_insert():
-    name = request.form["name"]
+    name = format_fully(request.form["name"])
     db_insert.insert_into_tournaments(name)
     return redirect("/tournaments")
 
@@ -67,7 +67,7 @@ def teams():
 
 @ow_app.route("/teams_send", methods=["POST"])
 def team_insert():
-    name = request.form["name"]
+    name = format_fully(request.form["name"])
     user_id = users_in_db.get_session_user_id(session['username'])
     db_insert.insert_into_teams(name, user_id)
     return redirect("/teams")
@@ -107,7 +107,7 @@ def new_people_insert():
     choices = [(True, "Yes"), (False, "No")]
 
     # people table
-    name = request.form["name"]
+    name = format_fully(request.form["name"])
     status = request.form["status"]
     country_id = int(request.form["country"])
     # checking if person already exists in database
@@ -120,11 +120,6 @@ def new_people_insert():
     for role in [request.form["damage"], request.form["tank"], request.form["support"]]:
         if role == 'True':
             count_of_in_game_roles += 1
-            print("count is", count_of_in_game_roles)
-    
-    print("type:", type(request.form["player_team"]))
-    print("form sisältää:", request.form["player_team"])
-    
 
     # if the user selected a player_team and in game roles for the person, information is inserted into all three tables
     if request.form["player_team"] != '' and count_of_in_game_roles > 0:
@@ -209,6 +204,9 @@ def tournament_teams_insert():
     db_insert.insert_into_tournaments_teams(request.form["tournament_id"], request.form["team_id"])
     return redirect("/tournaments_teams")
 
+
+
+
 # sites for "search filtering". essentially these make it possible to search for teams, players, tournaments or whatever else
 
 # first attempt at a route that does both GET and POST
@@ -239,4 +237,4 @@ def search_players_send():
     current_player_list = db_search_functions.searching_player_name(input)
 
 
-    return render_template("search_players.html", players=current_player_list)
+    return render_template("search_players.html", selection=current_player_list)
