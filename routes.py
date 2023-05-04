@@ -22,8 +22,8 @@ def register():
 
 @ow_app.route("/register",methods=["POST"])
 def register_insert():
-    username = format_fully(request.form["username"])
-    password = format_fully(request.form["password"])
+    username = request.form["username"]
+    password = request.form["password"]
     if users_in_db.insert_user(username, password):
         users_in_db.insert_user(username, password)
         session["id"] = users_in_db.get_session_user_id(username)
@@ -209,20 +209,14 @@ def tournament_teams_insert():
 
 # sites for "search filtering". essentially these make it possible to search for teams, players, tournaments or whatever else
 
-# first attempt at a route that does both GET and POST
 @ow_app.route("/search_players")
 def search_players():
-
-    # the search function doesnt work at all. however the page seems to list all players.
-    # do not use the search, its broken
-    user_id = users_in_db.get_session_user_id(session["username"])
     # get since its the default
     # we initialise with an empty input
     input = ''
     #if request method is POST
 
     current_player_list = db_search_functions.searching_player_name(input)
-    print(current_player_list)
 
 
     return render_template("search_players.html", selection=current_player_list)
@@ -230,9 +224,7 @@ def search_players():
 
 @ow_app.route("/search_players_send", methods=["POST"])
 def search_players_send():
-    user_id = users_in_db.get_session_user_id(session["username"])
-    # get since its the default
-    input = str(request.form["search"])
+    input = format_fully((request.form["search"]))
 
     current_player_list = db_search_functions.searching_player_name(input)
 
