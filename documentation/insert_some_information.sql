@@ -61,6 +61,28 @@ INSERT INTO people (name, status, country_id, user_id) VALUES ('Stella', 'active
 
 INSERT INTO people (name, status, country_id, user_id) VALUES ('Yasu', 'active', 59, 1);
 
-INSERT INTO people_teams_roles (person_id, player_team, coach_team, manager_team) VALUES (1, 17, NULL, NULL);
+INSERT INTO people_teams_roles (person_id, player_team, coach_team, manager_team) 
+VALUES (1, 17, NULL, NULL),
+       (2, 17, NULL, NULL),
+       (3, 17, NULL, NULL),
+       (4, 17, NULL, NULL),
+       (5, 17, NULL, NULL),
+       (6, 17, NULL, NULL),
+       (7, 17, NULL, NULL),
+       (8, NULL, 17, NULL),
+       (9, NULL, 17, NULL),
+       (10, NULL, 17, NULL),
+       (11, NULL, NULL, 17),
+       (12, 21, NULL, 21);
 
-INSERT INTO in_game_roles (person_id, damage, tank, support) VALUES (1, 't', 'f', 'f');
+
+INSERT INTO in_game_roles (person_id, damage, tank, support)
+VALUES (1, 't', 'f', 'f'),
+       (2, 't', 'f', 'f'),
+       (3, 't', 'f', 'f'),
+       (4, 'f', 't', 'f'),
+       (5, 'f', 'f', 't'),
+       (6, 'f', 'f', 't'),
+       (7, 'f', 'f', 't'),
+       (12, 't', 'f', 'f');
+       
