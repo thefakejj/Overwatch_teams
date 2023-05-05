@@ -6,7 +6,7 @@ import db_select
 import db_update
 import users_in_db
 import db_search_functions
-from formatting import format_fully
+from formatting import format_fully, username_invalid_characters
 
 import secrets
 
@@ -26,20 +26,40 @@ def register():
 def register_insert():
     username = request.form["username"]
     password = request.form["password"]
-    if users_in_db.insert_user(username, password):
+
+    if len(username) < 3:
+        message = "Username should be at least 3 characters long"
+    
+    elif len(username) >= 36:
+        message = "Username shouldn't be more than 36 characters long"
+    
+    elif username_invalid_characters(username):
+        message = "Username has invalid characters"
+    
+    elif users_in_db.user_exists(username):
+        message = "Username already exists"
+
+    elif len(password) < 8:
+        message = "Password should be at least 8 characters long"
+
+    elif len(password) > 256:
+        message = "Password too long"
+
+    else:
         users_in_db.insert_user(username, password)
         session["id"] = users_in_db.get_session_user_id(username)
         session["username"] = username
         session["csrf_token"] = secrets.token_hex(16)
-    else:
-        return render_template("error.html", site="register.html", message="Username already exists")
-    return redirect("/")
+        return redirect("/")
+    
+    
+    return render_template("error.html", site="register.html", message=message)
 
 @ow_app.route("/login",methods=["POST"])
 def login():
     username = request.form["username"]
     password = request.form["password"]
-    if users_in_db.check_username_password(username, password)[0]:
+    if users_in_db.check_username_password(username, password):
         session["id"] = users_in_db.get_session_user_id(username)
         session["username"] = username
         session["csrf_token"] = secrets.token_hex(16)

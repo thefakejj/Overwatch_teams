@@ -18,15 +18,10 @@ def user_exists(username):
         return True
 
 def insert_user(username, password):
-    if not user_exists(username):
-        hash_value = generate_password_hash(password)
-        sql = text('INSERT INTO users (name, password) VALUES (:username, :password)')
-        ow_db.session.execute(sql, {"username":username, "password":hash_value})
-        ow_db.session.commit()
-        user_id = get_session_user_id(username)
-        return True
-    else:
-        return False
+    hash_value = generate_password_hash(password)
+    sql = text('INSERT INTO users (name, password) VALUES (:username, :password)')
+    ow_db.session.execute(sql, {"username":username, "password":hash_value})
+    ow_db.session.commit()
 
 
 def check_username_password(username, password):
@@ -34,5 +29,5 @@ def check_username_password(username, password):
         sql = text('SELECT password FROM users WHERE name=:username')
         result = ow_db.session.execute(sql, {"username":username})
         password_db = result.fetchone()[0]
-        user_id = get_session_user_id(username)
-        return check_password_hash(password_db, password), user_id
+        return check_password_hash(password_db, password)
+    return False
