@@ -14,7 +14,7 @@
 
     <form action="/search_players_send" method="POST">
         Search: <br>
-        <textarea name="search" rows="3" cols="40"></textarea>
+        <textarea name="search" rows="3" cols="40">{{input}}</textarea>
         <br>
         <input type="submit" value="update">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">

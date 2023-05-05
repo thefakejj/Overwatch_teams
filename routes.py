@@ -6,7 +6,7 @@ import db_select
 import db_update
 import users_in_db
 import db_search_functions
-from formatting import format_fully, username_invalid_characters
+from formatting import format_fully, username_invalid_characters, people_name_description, tournaments_name_description, teams_name_description
 
 import secrets
 
@@ -51,8 +51,7 @@ def register_insert():
         session["username"] = username
         session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
-    
-    
+
     return render_template("error.html", site="register.html", message=message)
 
 @ow_app.route("/login",methods=["POST"])
@@ -84,7 +83,12 @@ def tournaments():
 def tournament_insert():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
+        
     name = format_fully(request.form["name"])
+    if tournaments_name_description(name) != "okay":
+        tournament_list = db_select.select_all_tournaments()
+        message = tournaments_name_description(name)
+        return render_template("error.html", site="tournaments.html", message=message, count=len(tournament_list), tournament_list=tournament_list)
     db_insert.insert_into_tournaments(name)
     return redirect("/tournaments")
 
@@ -98,6 +102,10 @@ def team_insert():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
     name = format_fully(request.form["name"])
+    if teams_name_description(name) != "okay":
+        message = teams_name_description(name)
+        return render_template("error.html", site="teams.html", message=message)
+    
     user_id = users_in_db.get_session_user_id(session['username'])
     db_insert.insert_into_teams(name, user_id)
     return redirect("/teams")
@@ -127,7 +135,6 @@ def new_people_insert():
         abort(403)
     # unfortunately with the routes being split into two (new_people and new_people_send), 
     # the send routes will not get access to the countries table unless the lists are created again.
-    person_id = db_select.select_max_people_id()+1
     user_id = users_in_db.get_session_user_id(session["username"])
 
     # everything is created again to allow these when errors occur :/
@@ -140,6 +147,10 @@ def new_people_insert():
 
     # people table
     name = format_fully(request.form["name"])
+    if people_name_description(name) != "okay":
+        message = people_name_description(name)
+        return render_template("error.html", site="new_people.html", message=message, countries=countries, statuses=statuses, teams=teams, choices=choices)
+
     status = request.form["status"]
     country_id = int(request.form["country"])
     # checking if person already exists in database
@@ -156,12 +167,14 @@ def new_people_insert():
     # if the user selected a player_team and in game roles for the person, information is inserted into all three tables
     if request.form["player_team"] != '' and count_of_in_game_roles > 0:
         db_insert.insert_into_people(name, status, country_id, user_id)
+        person_id = db_select.select_max_people_id()
         db_insert.insert_into_people_teams_roles(person_id, request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
         db_insert.insert_into_in_game_roles(person_id, request.form["damage"], request.form["tank"], request.form["support"])
     
     # if the user player_team but no in game roles, information is inserted into all three tables
     elif request.form["player_team"] != ''  and count_of_in_game_roles == 0:
         db_insert.insert_into_people(name, status, country_id, user_id)
+        person_id = db_select.select_max_people_id()
         db_insert.insert_into_people_teams_roles(person_id, request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
         db_insert.insert_into_in_game_roles(person_id, request.form["damage"], request.form["tank"], request.form["support"])
 
@@ -173,6 +186,7 @@ def new_people_insert():
     # if the user didnt select a player_team or an in game role, the person is added to the database with information inserted
     else:
         db_insert.insert_into_people(name, status, country_id, user_id)
+        person_id = db_select.select_max_people_id()
         db_insert.insert_into_people_teams_roles(person_id, request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
         db_insert.insert_into_in_game_roles(person_id, request.form["damage"], request.form["tank"], request.form["support"])
     
@@ -253,12 +267,11 @@ def search_players():
     # get since its the default
     # we initialise with an empty input
     input = ''
-    #if request method is POST
 
     current_player_list = db_search_functions.searching_player_name(input)
 
 
-    return render_template("search_players.html", selection=current_player_list)
+    return render_template("search_players.html", selection=current_player_list, input=input)
 
 
 @ow_app.route("/search_players_send", methods=["POST"])
@@ -270,4 +283,4 @@ def search_players_send():
     current_player_list = db_search_functions.searching_player_name(input)
 
 
-    return render_template("search_players.html", selection=current_player_list)
+    return render_template("search_players.html", selection=current_player_list, input=input)
