@@ -9,6 +9,8 @@ Users would be able to search Overwatch League players and teams with different 
 
 An API will be used to get images of country flags in the program.
 
+FLAGS FROM https://flagpedia.net/
+
 ## THIS APP IS NOT AVAILABLE ON FLY.IO
 
 ## How to install
