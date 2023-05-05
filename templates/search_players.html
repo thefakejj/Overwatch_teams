@@ -2,34 +2,71 @@
 {% block title %}People search{% endblock %}
 {% block content %}
 
-    <h2>Welcome to the people search</h2>
+<h2>Welcome to the people search</h2>
 
-    <br>
-    <br>
+<br>
+<br>
 
-    Use the filtering functions to find players
+Use the filtering functions to find players
 
-    <br>
-    <br>
+<br>
+<br>
 
-    <form action="/search_players_send" method="POST">
-        Search: <br>
-        <textarea name="search" rows="3" cols="40">{{input}}</textarea>
-        <br>
-        <input type="submit" value="update">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        </form>
+<form action="/search_players_send" method="POST">
+    Search: <br>
+    <textarea name="search" rows="3" cols="40">{{input}}</textarea>
+    <br>
+    <input type="submit" value="update">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
 
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            
+        </div>
+        <div class="col-sm">
+            Player
+        </div>
+        <div class="col-sm">
+            Team
+        </div>
+        <div class="col-sm">
+            Nationality
+        </div>
+        <div class="col-sm">
+            Status
+        </div>
+    </div>
     <br>
-    <br>
+    {% for row in selection %}
+    <div class="row">
+        <div class="col-sm">
+            <img
+                src="https://flagcdn.com/128x96/{{row.4}}.png"
+                srcset="https://flagcdn.com/256x192/{{row.4}}.png 2x"
+                style="float:right"
+                height="36">
+        </div>
+        <div class="col-sm">
+            {{ row.0 }}
+        </div>
+        <div class="col-sm">
+            {{ row.1 }}
+        </div>
+        <div class="col-sm">
+            {{ row.2 }}
+        </div>
+        <div class="col-sm">
+            {{ row.3 }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<br>
 
-        {% for row in selection %}
-        {{ row }}<br>
-        {% endfor %}
-
-    <br>
-    <br>
-    
 
 {% endblock %}
-

@@ -7,6 +7,7 @@ def get_country_tuples():
         reader = csv.reader(csvfile)
         for row in reader:
             code = row[0]
+            code = code.lower()
             name = row[1]
             countries_list.append((code, name))
     

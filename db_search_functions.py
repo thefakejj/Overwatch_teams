@@ -3,7 +3,7 @@ from db import ow_db
 
 def show_all_players():
     sql = text('''
-        SELECT people.name, teams.name, countries.name, people.status
+        SELECT people.name, teams.name, countries.name, people.status, countries.code
         FROM people, teams, people_teams_roles, countries
         WHERE people.id = people_teams_roles.person_id
         AND people_teams_roles.player_team = teams.id
@@ -19,7 +19,7 @@ def searching_player_name(input):
     else:
         input = input.lower()
         sql = text('''
-            SELECT people.name, teams.name, countries.name, people.status
+            SELECT people.name, teams.name, countries.name, people.status, countries.code
             FROM people, teams, people_teams_roles, countries
             WHERE people.id = people_teams_roles.person_id
             AND people_teams_roles.player_team = teams.id

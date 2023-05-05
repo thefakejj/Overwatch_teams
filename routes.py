@@ -228,7 +228,6 @@ def update_in_game_roles():
     return render_template("update_in_game_roles.html", people_is_player=people_is_player, choices=choices)
 
 @ow_app.route("/update_in_game_roles_send", methods=["POST"])
-
 def update_in_game_role_insert():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
