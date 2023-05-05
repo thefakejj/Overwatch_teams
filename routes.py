@@ -196,8 +196,6 @@ def new_people_insert():
 
 @ow_app.route("/update_people_teams_roles")
 def update_people_teams_roles():
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
     user_id = users_in_db.get_session_user_id(session["username"])
     people = db_select.select_people(user_id)
     if people == []:
