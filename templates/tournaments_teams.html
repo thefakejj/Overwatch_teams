@@ -26,5 +26,6 @@ Which tournament does a particular team play in?
     <br>
 
     <input type="submit" value="add">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 {% endblock %}

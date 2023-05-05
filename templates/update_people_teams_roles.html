@@ -43,5 +43,6 @@ Connect a person and their role in a team. A person can be a player, manager or 
         </SELECT>  
 
     <input type="submit" value="add">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 {% endblock %}

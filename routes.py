@@ -8,6 +8,8 @@ import users_in_db
 import db_search_functions
 from formatting import format_fully
 
+import secrets
+
 # sites intended to be kept (works from user experience standpoint)
 
 @ow_app.route("/")
@@ -28,6 +30,7 @@ def register_insert():
         users_in_db.insert_user(username, password)
         session["id"] = users_in_db.get_session_user_id(username)
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
     else:
         return render_template("error.html", site="register.html", message="Username already exists")
     return redirect("/")
@@ -39,6 +42,7 @@ def login():
     if users_in_db.check_username_password(username, password)[0]:
         session["id"] = users_in_db.get_session_user_id(username)
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
     else:
         return render_template("error.html", site="index.html", message="Invalid username or password")
     return redirect("/")
@@ -46,6 +50,8 @@ def login():
 @ow_app.route("/logout")
 def logout():
     del session["username"]
+    del session["id"]
+    del session["csrf_token"]
     return redirect("/")
 
 
@@ -56,6 +62,8 @@ def tournaments():
 
 @ow_app.route("/tournaments_send", methods=["POST"])
 def tournament_insert():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     name = format_fully(request.form["name"])
     db_insert.insert_into_tournaments(name)
     return redirect("/tournaments")
@@ -67,6 +75,8 @@ def teams():
 
 @ow_app.route("/teams_send", methods=["POST"])
 def team_insert():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     name = format_fully(request.form["name"])
     user_id = users_in_db.get_session_user_id(session['username'])
     db_insert.insert_into_teams(name, user_id)
@@ -93,6 +103,8 @@ def new_people():
 
 @ow_app.route("/new_people_send", methods=["POST"])
 def new_people_insert():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     # unfortunately with the routes being split into two (new_people and new_people_send), 
     # the send routes will not get access to the countries table unless the lists are created again.
     person_id = db_select.select_max_people_id()+1
@@ -150,6 +162,8 @@ def new_people_insert():
 
 @ow_app.route("/update_people_teams_roles")
 def update_people_teams_roles():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     user_id = users_in_db.get_session_user_id(session["username"])
     people = db_select.select_people(user_id)
     if people == []:
@@ -162,11 +176,14 @@ def update_people_teams_roles():
 
 @ow_app.route("/update_people_teams_roles_send", methods=["POST"])
 def update_person_team_role_insert():
-    if request.form["person_id"] == '':
-        return redirect("/")
-    db_update.update_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    if request.form["person_id"] != '':
+        if db_select.have_persons_team_roles_been_set(request.form["person_id"]):
+            db_update.update_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
+        else:
+            db_insert.insert_into_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
     return redirect("/")
-
 
 @ow_app.route("/update_in_game_roles")
 def update_in_game_roles():
@@ -179,13 +196,15 @@ def update_in_game_roles():
     return render_template("update_in_game_roles.html", people_is_player=people_is_player, choices=choices)
 
 @ow_app.route("/update_in_game_roles_send", methods=["POST"])
+
 def update_in_game_role_insert():
-    if request.form["person_id"] == '':
-        return redirect("/")
-    if db_select.has_persons_in_game_roles_been_set(request.form["person_id"]):
-        db_insert.insert_into_in_game_roles(request.form["person_id"], request.form["damage"], request.form["tank"], request.form["support"])
-    else:
-        db_update.update_in_game_roles(request.form["person_id"], request.form["damage"], request.form["tank"], request.form["support"])
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    if request.form["person_id"] != '':
+        if db_select.has_persons_in_game_roles_been_set(request.form["person_id"]):
+            db_insert.insert_into_in_game_roles(request.form["person_id"], request.form["damage"], request.form["tank"], request.form["support"])
+        else:
+            db_update.update_in_game_roles(request.form["person_id"], request.form["damage"], request.form["tank"], request.form["support"])
     return redirect("/")
 
 
@@ -224,6 +243,8 @@ def search_players():
 
 @ow_app.route("/search_players_send", methods=["POST"])
 def search_players_send():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     input = format_fully((request.form["search"]))
 
     current_player_list = db_search_functions.searching_player_name(input)

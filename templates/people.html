@@ -23,7 +23,7 @@
             <OPTION value={{country.id}}>{{country.name}}</option>
         {% endfor %}
         </SELECT>
-    
     <input type="submit" value="add">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 {% endblock %}

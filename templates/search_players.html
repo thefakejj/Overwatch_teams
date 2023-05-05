@@ -17,6 +17,7 @@
         <textarea name="search" rows="3" cols="40"></textarea>
         <br>
         <input type="submit" value="update">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         </form>
 
     <br>
@@ -28,7 +29,7 @@
 
     <br>
     <br>
-
+    
 
 {% endblock %}
 
