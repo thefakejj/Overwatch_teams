@@ -1,9 +1,16 @@
 # Overwatch teams application
 
+Welcome to the Overwatch teams database app!
 
 
-Player database:
-Admin can log in and add players the database. In the future, regular users will be able to add their own teams and manage them. The application would have a graphical user interface. The program would use an API to get small images of country flags, which would be displayed on the list of search results corresponding to the player's nationality code.
+
+
+Team database:
+You can register users and log into the app. Users can add people, teams, tournaments into the database, as well as add people to teams and teams to tournaments. Users can only handle information of the people or teams that they themselves have added to the database, however any user can add their team to any tournament that is not a professional tournament, such as the Overwatch League.
+
+People can be players, managers or coaches for teams, but they can also be none of the forementioned. This information can be updated using the "Update people's roles on teams" function.
+
+If a person is a player, they can be given in game roles or be left without them. Similarly to the previous functionality, this information can be updated using the "Update player's in-game roles" function.
 
 Users would be able to search Overwatch League players and teams with different kinds of filtering, such as region or what tournament they play in. The user can click on results to open a new page, with more details about the player or team. For example, if the user clicks on a player, the new page would show the player's nationality, role and teams they play for. Clicking a team shows the team's region, players and tournaments.
 
@@ -11,7 +18,11 @@ An API will be used to get images of country flags in the program.
 
 FLAGS FROM https://flagpedia.net/
 
+<br>
+
 ## THIS APP IS NOT AVAILABLE ON FLY.IO
+
+<br>
 
 ## How to install
 
@@ -59,62 +70,4 @@ psql < documentation/insert_some_information.sql
 ```
 which will insert some information to the database as a test.
 This information will be added with the user_id '1', so whatever the first user you created was will be able to use data added along this command.
-
-
---Tournament matchmaker (possible):
---If a tournament has  multiple teams, the matchmaker could randomly create matchups.
-
-
-Project status:
-A local database exists and directory structure of the project has been created. Functionality regarding adding data to the database is largely sufficent. This has allowed me to test the database.
-
-Current functionality:
-- Automatically adding countries to the database upon loading the main page
-- Adding a tournament to the database
-- Adding a team to the database
-- Adding a team to a tournament
-- Adding people to the database
-- Setting a person's position in a team
-- Setting a player's in-game role 
-
-
-Schema update:
-The previous structure, where team_id would be in the groups table would not work, so team_id has been removed from the groups table and a new groups_teams table has been created.
-
-
-Improvement idea to the general user experience design:
-To reduce the time required to build teams using the database, people's teams, roles, in-game roles and other information could all be given in the same page where the person themselves is added. In pages where information is added to the database, the redirect could return to the same page, which would make adding large amounts of information easier. In the newly loaded page, there could be an indicator somewhere, which tells the user if the insert was successful, and what was just added to the database. Other possible changes could include a page, where people could be added into a specific team to make the process even faster. 
-
-Database improvement ideas:
-Data checking should be implemented, so that repeating data cannot be added. This would necessitate some functions to edit data, which is a functionality that is completely reasonable to add. However multiple people can have the same name, which makes this more difficult. Repeating references of the same person_id in tables such as people_teams_roles, however, should not be possible. The inclusion of tables for tournament groups may not be necessary, but this will be looked at later.
-
-Although I've gone over many ideas for improvement in this readme, anyone leaving feedback is still welcome to mention any ideas that are already present in this file!
-
-
-A rough overview of the database's tables:
-
-Tables
-
-Teams (name, city_id, --region_id) 
-
-People (name, status: active/inactive/retired/deceased, country_id) 
-
-People_teams_roles (people_id, player: teams_id, coach: teams_id, manager: teams_id)
-
-In_game_roles (people_id, Damage: boolean, Tank: boolean, manager: Support) 
-
-Tournaments (name) -> 1: overwatch league, 2 overwatch contenders
-
-Tournaments_teams (tournament_id, teams_id)
-
-Countries (code, name)
-
---Region (name) -> Europe, Korea, China
-
---Groups (name, tournaments_id) OWL_A, OWL_B, OWL_C, OWL_D
-
---Groups_teams (groups_id, teams_id)
-
---Cities (name, country_id)
-	
 
