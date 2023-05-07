@@ -18,6 +18,8 @@ An API will be used to get images of country flags in the program.
 
 FLAGS FROM https://flagpedia.net/
 
+Overwatch 2 logo by Blizzard Entertainment
+
 <br>
 
 ## THIS APP IS NOT AVAILABLE ON FLY.IO
