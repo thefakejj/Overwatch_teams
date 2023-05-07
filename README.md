@@ -12,9 +12,7 @@ People can be players, managers or coaches for teams, but they can also be none 
 
 If a person is a player, they can be given in game roles or be left without them. Similarly to the previous functionality, this information can be updated using the "Update player's in-game roles" function.
 
-Users would be able to search Overwatch League players and teams with different kinds of filtering, such as region or what tournament they play in. The user can click on results to open a new page, with more details about the player or team. For example, if the user clicks on a player, the new page would show the player's nationality, role and teams they play for. Clicking a team shows the team's region, players and tournaments.
-
-An API will be used to get images of country flags in the program.
+Use the search players function to search players by name. Based on a player's nationality, this search displays country flags which come through an API by flagpedia.
 
 FLAGS FROM https://flagpedia.net/
 

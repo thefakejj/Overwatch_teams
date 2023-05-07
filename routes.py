@@ -275,6 +275,8 @@ def search_players():
 
 @ow_app.route("/search_players_send", methods=["POST"])
 def search_players_send():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     input = format_fully((request.form["search"]))
 
     current_player_list = db_search_functions.searching_player_name(input)
