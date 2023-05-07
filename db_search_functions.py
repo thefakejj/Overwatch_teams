@@ -8,6 +8,7 @@ def show_all_players():
         WHERE people.id = people_teams_roles.person_id
         AND people_teams_roles.player_team = teams.id
         AND people.country_id = countries.id
+        ORDER BY people.name
         ''')
     result = ow_db.session.execute(sql)
     selection = result.fetchall()
@@ -25,6 +26,7 @@ def searching_player_name(input):
             AND people_teams_roles.player_team = teams.id
             AND people.country_id = countries.id
             AND LOWER(people.name) LIKE :input
+            ORDER BY people.name
         ''')
         result = ow_db.session.execute(sql, {"input":"%"+input+"%"})
         selection = result.fetchall()

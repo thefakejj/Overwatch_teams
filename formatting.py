@@ -1,4 +1,5 @@
 from string import whitespace, ascii_letters, digits, punctuation
+import db_select
 
 def format_fully(input):
     input = input.strip()
@@ -32,6 +33,8 @@ def tournaments_name_description(name):
         message = "Name is too short! A tournament's name should be at least 3 characters long."
     elif len(name) > 100:
         message = "Name is too long! A tournament's name should be at most 100 characters long."
+    elif db_select.has_tournament_been_added(name):
+        message = "Tournament of this name already exists"
     else:
         message = "okay"
     return message
@@ -42,6 +45,8 @@ def teams_name_description(name):
         message = "Name is too short! A team's name should be at least 3 characters long."
     elif len(name) > 80:
         message = "Name is too long! A team's name should be at most 80 characters long."
+    elif db_select.has_team_been_added(name):
+        message = "Team of this name already exists!"
     else:
         message = "okay"
     return message

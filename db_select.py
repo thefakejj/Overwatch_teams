@@ -37,16 +37,6 @@ def select_people(user_id):
         selection = result.fetchall()
     return selection
 
-
-# def insert_into_people(name, status, country_id, user_id):
-#     sql = text('INSERT INTO people (name, status, country_id, user_id) VALUES (:name, :status, :country_id, :user_id)')
-#     ow_db.session.execute(sql, {"name":name, "status":status, "country_id":country_id, "user_id":user_id})
-#     ow_db.session.commit()
-
-
-
-
-
 def select_all_people_count():
     result = ow_db.session.execute(text('SELECT COUNT(*) FROM people'))
     selection = result.fetchone()
@@ -91,25 +81,28 @@ def has_persons_in_game_roles_been_set(person_id):
     sql  = text('SELECT * FROM in_game_roles WHERE person_id = :person_id')
     result = ow_db.session.execute(sql, {"person_id":person_id})
     selection = result.fetchall()
-    if len(selection) == 0:
-        return True
-    else:
-        return False
+    return len(selection) == 0
     
 def have_persons_team_roles_been_set(person_id):
     sql  = text('SELECT * FROM people_teams_roles WHERE person_id = :person_id')
     result = ow_db.session.execute(sql, {"person_id":person_id})
     selection = result.fetchall()
-    if len(selection) == 0:
-        return False
-    else:
-        return True
+    return len(selection) == 0
 
 def has_person_been_added(name):
     sql = text("SELECT count(*) FROM people WHERE name = :name")
     result = ow_db.session.execute(sql, {"name":name})
     selection = result.fetchone()
-    if int(selection[0]) > 0:
-        return True
-    else:
-        return False
+    return int(selection[0]) > 0
+
+def has_team_been_added(name):
+    sql = text("SELECT count(*) FROM teams WHERE name = :name")
+    result = ow_db.session.execute(sql, {"name":name})
+    selection = result.fetchone()
+    return int(selection[0]) > 0
+
+def has_tournament_been_added(name):
+    sql = text("SELECT count(*) FROM tournaments WHERE name = :name")
+    result = ow_db.session.execute(sql, {"name":name})
+    selection = result.fetchone()
+    return int(selection[0]) > 0

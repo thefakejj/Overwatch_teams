@@ -105,10 +105,10 @@ def team_insert():
     if teams_name_description(name) != "okay":
         message = teams_name_description(name)
         return render_template("error.html", site="teams.html", message=message)
-    
     user_id = users_in_db.get_session_user_id(session['username'])
     db_insert.insert_into_teams(name, user_id)
     return redirect("/teams")
+
 
 # new sites
 
@@ -278,8 +278,6 @@ def search_players():
 
 @ow_app.route("/search_players_send", methods=["POST"])
 def search_players_send():
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
     input = format_fully((request.form["search"]))
 
     current_player_list = db_search_functions.searching_player_name(input)
