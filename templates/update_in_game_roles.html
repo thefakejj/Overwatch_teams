@@ -4,50 +4,53 @@
 
 Select an in-game role for a player.
 
+{% block error %}{% endblock %}
+<br>
+
 <form action="/update_in_game_roles_send" method="POST"> <br>
     <br>
     Which person: <br>
     <SELECT name="person_id">
-    <br>
+        <br>
         {% for person in people_is_player %}
-            <OPTION value={{person.id}}>{{person.name}}</option>
+        <OPTION value={{person.id}}>{{person.name}}</option>
         {% endfor %}
     </SELECT>
     <br>
     <br>
 
     Are they a damage player?: <br>
-        <SELECT name="damage">
-    <br>
-    
-            <OPTION value={{False}}>No</option>
-            <OPTION value={{True}}>Yes</option>
-                
-        </SELECT>
+    <SELECT name="damage">
+        <br>
+
+        <OPTION value={{False}}>No</option>
+        <OPTION value={{True}}>Yes</option>
+
+    </SELECT>
     <br>
 
     Are they a tank player?: <br>
-        <SELECT name="tank">
-    <br>
-    
-            <OPTION value={{False}}>No</option>
-            <OPTION value={{True}}>Yes</option>
-                
-        </SELECT>
+    <SELECT name="tank">
+        <br>
+
+        <OPTION value={{False}}>No</option>
+        <OPTION value={{True}}>Yes</option>
+
+    </SELECT>
     <br>
 
     Are they a support player?: <br>
-        <SELECT name="support">
-    <br>
-    
-            <OPTION value={{False}}>No</option>
-            <OPTION value={{True}}>Yes</option>
-                
-        </SELECT>
+    <SELECT name="support">
+        <br>
+
+        <OPTION value={{False}}>No</option>
+        <OPTION value={{True}}>Yes</option>
+
+    </SELECT>
     <br>
     <br>
 
     <button type="submit" class="btn btn-primary">Update</button>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
+</form>
 {% endblock %}

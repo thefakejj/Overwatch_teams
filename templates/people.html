@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}People{% endblock %}
 {% block content %}
+
+
 <form action="/people_send" method="POST">
     Add a person <br>
     <br>
@@ -9,21 +11,22 @@
     <br>
     status: <br>
     <SELECT name="status">
-    <br>
-            {% for status in statuses %}
-                <OPTION value={{status}}>{{status}}</option>
-            {% endfor %}
-            </SELECT>
-        
+        <br>
+        {% for status in statuses %}
+        <OPTION value={{status}}>{{status}}</option>
+        {% endfor %}
+    </SELECT>
+
     <br>
     country: <br>
     <SELECT name="country">
-    <br>
+        <br>
         {% for country in countries %}
-            <OPTION value={{country.id}}>{{country.name}}</option>
+        <OPTION value={{country.id}}>{{country.name}}</option>
         {% endfor %}
-        </SELECT>
+    </SELECT>
     <input type="submit" value="add">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
+</form>
+
 {% endblock %}

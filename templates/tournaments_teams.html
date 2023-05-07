@@ -2,30 +2,33 @@
 {% block title %}Tournaments teams{% endblock %}
 {% block content %}
 
+{% block error %}{% endblock %}
+<br>
+
 Which tournament does a particular team play in?
 
 <form action="/tournaments_teams_send" method="POST"> <br>
     <br>
     Which team: <br>
-        <SELECT name="team_id">
+    <SELECT name="team_id">
+        <br>
+        {% for team in teams %}
+        <OPTION value={{team.id}}>{{team.name}}</option>
+        {% endfor %}
+    </SELECT>
     <br>
-            {% for team in teams %}
-                <OPTION value={{team.id}}>{{team.name}}</option>
-            {% endfor %}
-        </SELECT>  
-    <br>
-    
+
     Which tournament is this team a part of: <br>
-        <SELECT name="tournament_id">
-    <br>
-            {% for tournament in tournaments %}
-                <OPTION value={{tournament.id}}>{{tournament.name}}</option>
-            {% endfor %}
-        </SELECT>
+    <SELECT name="tournament_id">
+        <br>
+        {% for tournament in tournaments %}
+        <OPTION value={{tournament.id}}>{{tournament.name}}</option>
+        {% endfor %}
+    </SELECT>
     <br>
     <br>
 
     <button type="submit" class="btn btn-primary">Add</button>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
+</form>
 {% endblock %}

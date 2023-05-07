@@ -10,7 +10,7 @@
 
 Welcome to the Overwatch Teams database app!
 <br>
-If you haven't already, start by adding your team to the database below. After this, you can add players to your team! 
+If you haven't already, start by adding your team to the database below. After this, you can add players to your team!
 
 <br>
 <br>
@@ -21,6 +21,9 @@ What would you like to do?
 <br>
 
 <div class="list-group">
+    <a href="/teams" class="list-group-item list-group-item-action">
+        Add teams to the database
+    </a>
     <a href="/new_people" class="list-group-item list-group-item-action">
         Add people to the database
     </a>
@@ -36,7 +39,7 @@ What would you like to do?
     <a href="/update_in_game_roles" class="list-group-item list-group-item-action">
         Update player's in-game roles
     </a>
-  </div>
+</div>
 
 <br>
 <br>
@@ -52,20 +55,27 @@ Search functions:
 </div>
 
 
+
+
 {% else %}
 <a href="/register">Create an account</a>
 
-<br><br><br>
+<br><br>
+
 <form action="/login" method="POST">
-Login
-<p>Username:<br>
-<input type="text" name="username"></p>
-<p>Password:<br>
-<input type="password" name="password"></p>
-<input type="submit" value="Log in">
+    Login
+    <p>Username:<br>
+        <input type="text" name="username">
+    </p>
+    <p>Password:<br>
+        <input type="password" name="password">
+    </p>
+    <input type="submit" value="Log in">
 </form>
 
 {% endif %}
 
+<br>
+{% block error %}{% endblock %}
 
 {% endblock %}

@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}Tournaments{% endblock %}
 {% block content %}
+
+{% block error %}{% endblock %}
+<br>
+
 <form action="/tournaments_send" method="POST">
     Add tournament <br>
     <br>
@@ -9,21 +13,21 @@
     <br>
     <button type="submit" class="btn btn-primary">Add</button>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
+</form>
 
-        
-        <bold>
-            <br> 
-            <br>
-            Current tournament count: {{ count }}
-            <br>
-            List of tournaments:
-            <br>
-        </bold>
-        
-        <ul class="list-group">
-            {% for tournament in tournament_list %}
-            <li class="list-group-item" style="width: 50%;" >{{ tournament.name }}</li>
-            {% endfor %}
-          </ul>
+
+<bold>
+    <br>
+    <br>
+    Current tournament count: {{ count }}
+    <br>
+    List of tournaments:
+    <br>
+</bold>
+
+<ul class="list-group">
+    {% for tournament in tournament_list %}
+    <li class="list-group-item" style="width: 50%;">{{ tournament.name }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}

@@ -1,8 +1,9 @@
 {% extends site %}
 {% block error %}
-
-Error: {{ message }}
-<br>
-<br>
+<div class="list-group">
+    <a class="list-group-item disabled" style="color: crimson;">
+        Error: {{ message }}
+    </a>
+</div>
 
 {% endblock %}
