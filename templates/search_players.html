@@ -2,16 +2,18 @@
 {% block title %}Player search{% endblock %}
 {% block content %}
 
+
+
 <h2>Welcome to the player search</h2>
 
 <br>
 
 
-<div class="container">
 
-    <div class="col">
+
+    <div class="row">
         <form action="/search_players_send" method="POST">
-            Search: <br>
+            >Search:<br>
             <textarea name="search" rows="1" cols="20">{{input}}</textarea>
             <br>
             <input type="submit" value="update">
@@ -20,7 +22,7 @@
 
 
 
-    <div class="col">
+    <div class="row">
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -68,5 +70,5 @@
 
         </table>
     </div>
-</div>
-    {% endblock %}
+
+{% endblock %}
