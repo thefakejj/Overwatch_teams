@@ -7,21 +7,23 @@
     name: <br>
     <textarea name="name" rows="3" cols="40"></textarea>
     <br>
-    <input type="submit" value="add">
+    <button type="submit" class="btn btn-primary">Add</button>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 
-        <br>
-        <br>
-        Current tournament count: {{ count }}
-        <br>
-
-        List of tournaments:
-        <br>
-        <ul>
-            {% for tournament in tournament_list %}
-            <li>{{ tournament.name }}</li>
         
+        <bold>
+            <br> 
+            <br>
+            Current tournament count: {{ count }}
+            <br>
+            List of tournaments:
+            <br>
+        </bold>
+        
+        <ul class="list-group">
+            {% for tournament in tournament_list %}
+            <li class="list-group-item" style="width: 50%;" >{{ tournament.name }}</li>
             {% endfor %}
-        </ul>
+          </ul>
 {% endblock %}

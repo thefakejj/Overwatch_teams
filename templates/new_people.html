@@ -1,30 +1,31 @@
 {% extends "layout.html" %}
 {% block title %}Add a person{% endblock %}
 {% block content %}
-    <form action="/new_people_send" method="POST">
+
+<form action="/new_people_send" method="POST">
     Add a person <br>
     <br>
-        name: <br>
-        <textarea name="name" rows="1" cols="40"></textarea>
+    name: <br>
+    <textarea name="name" rows="1" cols="40"></textarea>
+    <br>
+    status: <br>
+    <SELECT name="status">
         <br>
-        status: <br>
-        <SELECT name="status">
+        {% for status in ['active', 'inactive', 'retired', 'deceased'] %}
+        <OPTION value={{status}}>{{status}}</option>
+        {% endfor %}
+    </SELECT>
+
+    <br>
+    country: <br>
+    <SELECT name="country">
         <br>
-                {% for status in ['active', 'inactive', 'retired', 'deceased'] %}
-                    <OPTION value={{status}}>{{status}}</option>
-                {% endfor %}
-                </SELECT>
-            
-        <br>
-        country: <br>
-        <SELECT name="country">
-        <br>
-            {% for country in countries %}
-                <OPTION value={{country.id}}>{{country.name}}</option>
-            {% endfor %}
-            </SELECT>
-        <br>
-        <br>
+        {% for country in countries %}
+        <OPTION value={{country.id}}>{{country.name}}</option>
+        {% endfor %}
+    </SELECT>
+    <br>
+    <br>
 
     Which team is this person associated with?
     <br>
@@ -34,70 +35,71 @@
     <br>
     <br>
 
-        Are they a player for a team?: <br>
-        <SELECT name="player_team">
+    Are they a player for a team?: <br>
+    <SELECT name="player_team">
         <br>
-            {% for team in teams %}
-                <OPTION value={{team.id}}>{{team.name}}</option>
-            {% endfor %}
-            </SELECT>
-        <br>
+        {% for team in teams %}
+        <OPTION value={{team.id}}>{{team.name}}</option>
+        {% endfor %}
+    </SELECT>
+    <br>
 
-        Are they a coach for a team?: <br>
-        <SELECT name="coach_team">
+    Are they a coach for a team?: <br>
+    <SELECT name="coach_team">
         <br>
-            {% for team in teams %}
-                <OPTION value={{team.id}}>{{team.name}}</option>
-            {% endfor %}
-            </SELECT>
-        <br>
+        {% for team in teams %}
+        <OPTION value={{team.id}}>{{team.name}}</option>
+        {% endfor %}
+    </SELECT>
+    <br>
 
-        Are they a manager for a team?: <br>
-        <SELECT name="manager_team">
+    Are they a manager for a team?: <br>
+    <SELECT name="manager_team">
         <br>
-            {% for team in teams %}
-                <OPTION value={{team.id}}>{{team.name}}</option>
-            {% endfor %}
-            </SELECT>
-        <br>
-        <br>
+        {% for team in teams %}
+        <OPTION value={{team.id}}>{{team.name}}</option>
+        {% endfor %}
+    </SELECT>
+    <br>
+    <br>
 
-        
+
     If the person is a player, what roles do they play? If person isn't a player, leave all selections as "No".
     <br>
     <br>
-        Are they a damage player?: <br>
-        <SELECT name="damage">
-        <br>
-    
-            <OPTION value={{False}}>No</option>
-            <OPTION value={{True}}>Yes</option>
-                
-        </SELECT>
+    Are they a damage player?: <br>
+    <SELECT name="damage">
         <br>
 
-        Are they a tank player?: <br>
-            <SELECT name="tank">
-        <br>
-        
-                <OPTION value={{False}}>No</option>
-                <OPTION value={{True}}>Yes</option>
-                    
-            </SELECT>
+        <OPTION value={{False}}>No</option>
+        <OPTION value={{True}}>Yes</option>
+
+    </SELECT>
+    <br>
+
+    Are they a tank player?: <br>
+    <SELECT name="tank">
         <br>
 
-        Are they a support player?: <br>
-            <SELECT name="support">
-        <br>
-        
-                <OPTION value={{False}}>No</option>
-                <OPTION value={{True}}>Yes</option>
-                    
-            </SELECT>
-        <br>
+        <OPTION value={{False}}>No</option>
+        <OPTION value={{True}}>Yes</option>
+
+    </SELECT>
+    <br>
+
+    Are they a support player?: <br>
+    <SELECT name="support">
         <br>
 
-    <input type="submit" value="add">
+        <OPTION value={{False}}>No</option>
+        <OPTION value={{True}}>Yes</option>
+
+    </SELECT>
+    <br>
+    <br>
+
+    <button type="submit" class="btn btn-primary">Add</button>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
+</form>
+
 {% endblock %}

@@ -212,13 +212,10 @@ def update_person_team_role_insert():
         abort(403)
     if request.form["person_id"] != '':
         if db_select.have_persons_team_roles_been_set(request.form["person_id"]):
-            print("hei")
             if not db_select.has_persons_in_game_roles_been_set(request.form["person_id"]):
-                print("moi")
                 db_update.update_in_game_roles(request.form["person_id"], 'False', 'False', 'False')
             db_update.update_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
         else:
-            print("hallo")
             db_insert.insert_into_people_teams_roles(request.form["person_id"], request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
     return redirect("/")
 

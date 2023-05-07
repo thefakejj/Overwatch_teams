@@ -45,8 +45,9 @@ Select an in-game role for a player.
                 
         </SELECT>
     <br>
+    <br>
 
-    <input type="submit" value="add">
+    <button type="submit" class="btn btn-primary">Update</button>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 {% endblock %}

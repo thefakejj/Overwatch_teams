@@ -1,12 +1,30 @@
+.container {
+    margin: 1%;
+    max-width: 98%;
+}
+
 .table {
     width: 100%;
 }
 
-.container {
-    margin: 0px 0px 0px 0px;
-    width: 100%;
+.row {
+    margin-left: 1%;
+    margin-right: 1%;
 }
 
 .th.col {
-    width: 20%;
+    max-width: 10%;
+}
+
+.td.col {
+    max-width: 10%;
+}
+
+.form-group {
+    width: 10%;
+}
+
+.logo {
+    margin-left: 1%;
+    width: 1.5em;
 }

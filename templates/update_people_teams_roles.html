@@ -40,9 +40,12 @@ Connect a person and their role in a team. A person can be a player, manager or 
         {% for team in teams %}
             <OPTION value={{team.id}}>{{team.name}}</option>
         {% endfor %}
-        </SELECT>  
+        </SELECT>
+    <br>
+    <br>
 
-    <input type="submit" value="add">
+    <button type="submit" class="btn btn-primary">Update</button>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
+    
 {% endblock %}

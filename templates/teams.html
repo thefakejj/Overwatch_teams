@@ -1,13 +1,17 @@
 {% extends "layout.html" %}
 {% block title %}Teams{% endblock %}
 {% block content %}
-<form action="/teams_send" method="POST">
-    Add team <br>
-    <br>
-    name: <br>
-    <textarea name="name" rows="3" cols="40"></textarea>
-    <br>
-    <input type="submit" value="add">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+
+<div class="row">
+    <form action="/teams_send" method="POST">
+        Add team <br>
+        <br>
+        name: <br>
+        <textarea name="name" rows="3" cols="40"></textarea>
+        <br>
+        <button type="submit"class="btn btn-primary">Add</button>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
+</div>
 {% endblock %}

@@ -2,73 +2,72 @@
 {% block title %}Player search{% endblock %}
 {% block content %}
 
-
-
 <h2>Welcome to the player search</h2>
 
 <br>
 
-
-
-
-    <div class="row">
-        <form action="/search_players_send" method="POST">
-            >Search:<br>
-            <textarea name="search" rows="1" cols="20">{{input}}</textarea>
+<div class="row">
+    <form action="/search_players_send" method="POST">
+        <div class="form-group">
+            <label for="search"> Search: </label>
+            <textarea name="search">{{input}}</textarea>
             <br>
-            <input type="submit" value="update">
-        </form>
-    </div>
+        </div>
+        <button type="submit"class="btn btn-primary">Update</button>
+        <br>
+        <br>
+        
+    </form>
+</div>
 
 
+<div class="row">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">
 
-    <div class="row">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">
+                </th>
+                <th scope="col">
+                    Player
+                </th>
+                <th scope="col">
+                    Team
+                </th>
+                <th scope="col">
+                    Nationality
+                </th>
+                <th scope="col">
+                    Status
+                </th>
+            </tr>
+        </thead>
+        <br>
+        <tbody>
+            <tr>
+                {% for row in selection %}
 
-                    </th>
-                    <th scope="col">
-                        Player
-                    </th>
-                    <th scope="col">
-                        Team
-                    </th>
-                    <th scope="col">
-                        Nationality
-                    </th>
-                    <th scope="col">
-                        Status
-                    </th>
-                </tr>
-            </thead>
-            <br>
-            <tbody>
-                <tr>
-                    {% for row in selection %}
+                <td scope="col">
+                    <img src="https://flagcdn.com/128x96/{{row.4}}.png"
+                        srcset="https://flagcdn.com/256x192/{{row.4}}.png 2x" style="float:right" height="36">
+                </td>
+                <td scope="col">
+                    {{ row.0 }}
+                </td>
+                <td scope="col">
+                    {{ row.1 }}
+                </td>
+                <td scope="col">
+                    {{ row.2 }}
+                </td>
+                <td scope="col">
+                    {{ row.3 }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
 
-                    <td scope="col">
-                        <img src="https://flagcdn.com/128x96/{{row.4}}.png"
-                            srcset="https://flagcdn.com/256x192/{{row.4}}.png 2x" style="float:right" height="36">
-                    </td>
-                    <td scope="col">
-                        {{ row.0 }}
-                    </td>
-                    <td scope="col">
-                        {{ row.1 }}
-                    </td>
-                    <td scope="col">
-                        {{ row.2 }}
-                    </td>
-                    <td scope="col">
-                        {{ row.3 }}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-
-        </table>
-    </div>
+    </table>
+</div>
 
 {% endblock %}
