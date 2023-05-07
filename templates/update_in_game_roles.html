@@ -2,13 +2,12 @@
 {% block title %}In game roles{% endblock %}
 {% block content %}
 
-Select an in-game role for a player.
+<p class="fs-5">Select an in-game role for a player.</p>
 
-{% block error %}{% endblock %}
+{% block message %}{% endblock %}
 <br>
 
-<form action="/update_in_game_roles_send" method="POST"> <br>
-    <br>
+<form action="/update_in_game_roles_send" method="POST">
     Which person: <br>
     <SELECT name="person_id">
         <br>

@@ -2,13 +2,12 @@
 {% block title %}Tournaments teams{% endblock %}
 {% block content %}
 
-{% block error %}{% endblock %}
+{% block message %}{% endblock %}
 <br>
 
-Which tournament does a particular team play in?
+<p class="fs-5">Which tournament does a particular team play in?</p>
 
-<form action="/tournaments_teams_send" method="POST"> <br>
-    <br>
+<form action="/tournaments_teams_send" method="POST">
     Which team: <br>
     <SELECT name="team_id">
         <br>

@@ -2,13 +2,12 @@
 {% block title %}Teams{% endblock %}
 {% block content %}
 
-{% block error %}{% endblock %}
+{% block message %}{% endblock %}
 <br>
 
 <div class="row">
     <form action="/teams_send" method="POST">
-        Add team <br>
-        <br>
+        <p class="fs-5">Add team</p>
         name: <br>
         <textarea name="name" rows="3" cols="40"></textarea>
         <br>

@@ -106,3 +106,9 @@ def has_tournament_been_added(name):
     result = ow_db.session.execute(sql, {"name":name})
     selection = result.fetchone()
     return int(selection[0]) > 0
+
+def is_team_in_tournament(tournament_id, team_id):
+    sql = (text('SELECT count(*) FROM tournaments_teams WHERE tournament_id = :tournament_id AND team_id = :team_id'))
+    result = ow_db.session.execute(sql, {"tournament_id":tournament_id, "team_id":team_id})
+    selection = result.fetchone()
+    return int(selection[0]) > 0

@@ -2,11 +2,10 @@
 {% block title %}Add a person{% endblock %}
 {% block content %}
 
-{% block error %}{% endblock %}
+{% block message %}{% endblock %}
 <br>
 <form action="/new_people_send" method="POST">
-    Add a person <br>
-    <br>
+    <p class="fs-5">Add a person</p>
     name: <br>
     <textarea name="name" rows="1" cols="40"></textarea>
     <br>

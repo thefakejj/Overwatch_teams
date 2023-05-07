@@ -3,7 +3,7 @@
 {% block content %}
 
 <form action="/register" method="POST">
-    Register an account<br><br>
+    <p class="fs-5">Register an account</p>
 
     <p>Username:<br>
         <input type="text" name="username">
@@ -14,5 +14,5 @@
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
 <br>
-{% block error %}{% endblock %}
+{% block message %}{% endblock %}
 {% endblock %}

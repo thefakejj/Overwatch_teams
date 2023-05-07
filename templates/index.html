@@ -70,10 +70,10 @@ Search functions:
     </a>
 </div>
 
-<br><br>
+<br>
 
 <form action="/login" method="POST">
-    Login
+    <p class="fs-5">Login</p>
     <p>Username:<br>
         <input type="text" name="username">
     </p>
@@ -86,6 +86,6 @@ Search functions:
 {% endif %}
 
 <br>
-{% block error %}{% endblock %}
+{% block message %}{% endblock %}
 
 {% endblock %}

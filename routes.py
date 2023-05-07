@@ -51,8 +51,9 @@ def register_insert():
         session["username"] = username
         session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
+    iserror = True
 
-    return render_template("error.html", site="register.html", message=message)
+    return render_template("message.html", site="register.html", message=message, iserror=iserror)
 
 @ow_app.route("/login",methods=["POST"])
 def login():
@@ -63,7 +64,7 @@ def login():
         session["username"] = username
         session["csrf_token"] = secrets.token_hex(16)
     else:
-        return render_template("error.html", site="index.html", message="Invalid username or password")
+        return render_template("message.html", site="index.html", message="Invalid username or password", iserror=True)
     return redirect("/")
 
 @ow_app.route("/logout")
@@ -85,12 +86,16 @@ def tournament_insert():
         abort(403)
         
     name = format_fully(request.form["name"])
-    if tournaments_name_description(name) != "okay":
-        tournament_list = db_select.select_all_tournaments()
+    if tournaments_name_description(name) != "Tournament successfully added to the database!":
         message = tournaments_name_description(name)
-        return render_template("error.html", site="tournaments.html", message=message, count=len(tournament_list), tournament_list=tournament_list)
+        tournament_list = db_select.select_all_tournaments()
+        iserror = True
+        return render_template("message.html", site="tournaments.html", message=message, iserror=[iserror], count=len(tournament_list), tournament_list=tournament_list)
+    message = tournaments_name_description(name)
     db_insert.insert_into_tournaments(name)
-    return redirect("/tournaments")
+    tournament_list = db_select.select_all_tournaments()
+    iserror = False
+    return render_template("message.html", site="tournaments.html", message=message, count=len(tournament_list), tournament_list=tournament_list)
 
 
 @ow_app.route("/teams")
@@ -101,13 +106,18 @@ def teams():
 def team_insert():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
+
     name = format_fully(request.form["name"])
-    if teams_name_description(name) != "okay":
+    if teams_name_description(name) != "Team successfully added to the database!":
         message = teams_name_description(name)
-        return render_template("error.html", site="teams.html", message=message)
+        iserror = True
+        return render_template("message.html", site="teams.html", message=message, iserror=iserror)
+
+    message = teams_name_description(name)
+    iserror = False
     user_id = users_in_db.get_session_user_id(session['username'])
     db_insert.insert_into_teams(name, user_id)
-    return redirect("/teams")
+    return render_template("message.html", site="teams.html", message=message, iserror=iserror)
 
 
 # new sites
@@ -147,16 +157,16 @@ def new_people_insert():
 
     # people table
     name = format_fully(request.form["name"])
-    if people_name_description(name) != "okay":
+    if people_name_description(name) != "Person successfully added to the database!":
         message = people_name_description(name)
-        return render_template("error.html", site="new_people.html", message=message, countries=countries, statuses=statuses, teams=teams, choices=choices)
+        return render_template("message.html", site="new_people.html", message=message, iserror=True, countries=countries, statuses=statuses, teams=teams, choices=choices)
 
     status = request.form["status"]
     country_id = int(request.form["country"])
     # checking if person already exists in database
     if db_select.has_person_been_added(name):
         message = "This person already exists in the database! You can edit a person's team roles or in game roles using the update functinalities."
-        return render_template("error.html", site="new_people.html", message=message, countries=countries, statuses=statuses, teams=teams, choices=choices)
+        return render_template("message.html", site="new_people.html", message=message, iserror=True, countries=countries, statuses=statuses, teams=teams, choices=choices)
 
     # checking if at least one in game role was selected
     count_of_in_game_roles = 0
@@ -164,6 +174,7 @@ def new_people_insert():
         if role == 'True':
             count_of_in_game_roles += 1
 
+    message = people_name_description(name)
     # if the user selected a player_team and in game roles for the person, information is inserted into all three tables
     if request.form["player_team"] != '' and count_of_in_game_roles > 0:
         db_insert.insert_into_people(name, status, country_id, user_id)
@@ -181,7 +192,7 @@ def new_people_insert():
     # if the user didn't select a player_team but did select in game roles, no information gets inserted and a corresponding error is displayed
     elif request.form["player_team"] == ''  and count_of_in_game_roles > 0:
         message = 'Person was not a player! If the person is not supposed to be a player, leave all in game roles as "No". Otherwise choose a team for the player.'
-        return render_template("error.html", site="new_people.html", message=message, countries=countries, statuses=statuses, teams=teams, choices=choices)
+        return render_template("message.html", site="new_people.html", message=message, iserror=True, countries=countries, statuses=statuses, teams=teams, choices=choices)
     
     # if the user didnt select a player_team or an in game role, the person is added to the database with information inserted
     else:
@@ -189,9 +200,9 @@ def new_people_insert():
         person_id = db_select.select_max_people_id()
         db_insert.insert_into_people_teams_roles(person_id, request.form["player_team"], request.form["coach_team"], request.form["manager_team"])
         db_insert.insert_into_in_game_roles(person_id, request.form["damage"], request.form["tank"], request.form["support"])
-    
-    
-    return redirect("/new_people")
+
+
+    return render_template("message.html", site="new_people.html", message=message, iserror=False, countries=countries, statuses=statuses, teams=teams, choices=choices)
 
 
 @ow_app.route("/update_people_teams_roles")
@@ -200,7 +211,7 @@ def update_people_teams_roles():
     people = db_select.select_people(user_id)
     if people == []:
         message="This user has no people added! Add a person first."
-        return render_template("error.html", site="index.html", message=message)
+        return render_template("message.html", site="index.html", message=message, iserror=True)
     teams = [None]
     for team in db_select.select_teams(user_id):
         teams.append(team)
@@ -225,7 +236,7 @@ def update_in_game_roles():
     people_is_player = db_select.select_people_is_player(user_id)
     if people_is_player == []:
         message="This user has no players added! Add some players, or edit a person's team role."
-        return render_template("error.html", site="index.html", message=message)
+        return render_template("message.html", site="index.html", message=message, iserror=True)
     choices = [(True, "Yes"), (False, "No")]
     return render_template("update_in_game_roles.html", people_is_player=people_is_player, choices=choices)
 
@@ -253,8 +264,20 @@ def tournaments_teams():
 
 @ow_app.route("/tournaments_teams_send", methods=["POST"])
 def tournament_teams_insert():
-    db_insert.insert_into_tournaments_teams(request.form["tournament_id"], request.form["team_id"])
-    return redirect("/tournaments_teams")
+    if db_select.is_team_in_tournament(request.form["tournament_id"], request.form["team_id"]):
+        message = "That team already exists in that tournament!"
+        iserror = True
+    else:
+        message = "Team successfully added to tournament!"
+        iserror = False
+        db_insert.insert_into_tournaments_teams(request.form["tournament_id"], request.form["team_id"])
+    user_id = users_in_db.get_session_user_id(session["username"])
+    if user_id == 1:
+        tournaments = db_select.select_all_tournaments()
+    else:
+        tournaments = db_select.select_tournaments()
+    teams = db_select.select_teams(user_id)
+    return render_template("message.html", site="tournaments_teams.html", message=message, iserror=iserror, tournaments=tournaments, teams=teams)
 
 
 

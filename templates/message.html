@@ -1,0 +1,22 @@
+{% extends site %}
+{% block message %}
+
+{% if iserror %}
+
+<div class="list-group">
+    <a class="list-group-item disabled" style="color: crimson;">
+        {{ message }}
+    </a>
+</div>
+
+{% else %}
+
+<div class="list-group">
+    <a class="list-group-item disabled" style="color: green;">
+        {{ message }}
+    </a>
+</div>
+
+{% endif %}
+
+{% endblock %}

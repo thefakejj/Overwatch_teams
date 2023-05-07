@@ -18,6 +18,8 @@ FLAGS FROM https://flagpedia.net/
 
 Overwatch 2 logo by Blizzard Entertainment
 
+Bootstrap 5.3.0 stylesheet is used
+
 <br>
 
 ## THIS APP IS NOT AVAILABLE ON FLY.IO
