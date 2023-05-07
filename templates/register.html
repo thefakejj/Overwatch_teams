@@ -3,14 +3,15 @@
 {% block content %}
 
 <form action="/register" method="POST">
-    Register an account
+    Register an account<br><br>
+
     <p>Username:<br>
         <input type="text" name="username">
     </p>
     <p>Password:<br>
         <input type="password" name="password">
     </p>
-    <input type="submit" value="Register">
+    <button type="submit" class="btn btn-primary">Register</button>
 </form>
 <br>
 {% block error %}{% endblock %}

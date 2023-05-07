@@ -10,7 +10,11 @@
     <div class="container">
         <title>Overwatch teams - {% block title %}{% endblock %}</title>
         <h1><img class="logo" src="./static/Overwatch_2_logo.png"> Overwatch teams database</h1>
-        <a href="/">Home page</a>
+        <div class="list-group">
+            <a href="/" class="list-group-item list-group-item-action" style="max-width: 7.5em;">
+                Home page
+            </a>
+        </div>
         <hr>
         {% block content %}{% endblock %}
         

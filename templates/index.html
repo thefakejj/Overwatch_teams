@@ -4,14 +4,19 @@
 
 
 {% if session.username %}
-<p>You're logged in as user {{ session.username }}</p>
-<a href="/logout">Logout</a>
-<hr>
+<p class="fs-5">You're logged in as user {{ session.username }}</p>
 
+<div class="list-group">
+    <a href="/logout" class="list-group-item list-group-item-action" style="max-width: 5.5em;">
+        Logout
+    </a>
+</div>
+<hr>
+<p class="fs-5">
 Welcome to the Overwatch Teams database app!
 <br>
 If you haven't already, start by adding your team to the database below. After this, you can add players to your team!
-
+</p>
 <br>
 <br>
 
@@ -58,7 +63,12 @@ Search functions:
 
 
 {% else %}
-<a href="/register">Create an account</a>
+
+<div class="list-group">
+    <a href="/register" class="list-group-item list-group-item-action" style="max-width: 10.5em;">
+        Create an account
+    </a>
+</div>
 
 <br><br>
 
@@ -70,7 +80,7 @@ Search functions:
     <p>Password:<br>
         <input type="password" name="password">
     </p>
-    <input type="submit" value="Log in">
+    <button type="submit" class="btn btn-primary">Log in</button>
 </form>
 
 {% endif %}
