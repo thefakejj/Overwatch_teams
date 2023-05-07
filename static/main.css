@@ -26,5 +26,9 @@
 
 .logo {
     margin-left: 1%;
-    width: 1.5em;
+    height: 1.5em;
+}
+
+.list-group-item {
+    max-width: 30%;
 }
